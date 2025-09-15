@@ -42,7 +42,19 @@ dv-ayms
 │   │   └── test_data.sql
 │   └── manual.md
 ├── LICENSE
-└── README.md
+├── README.md
+└── src
+    ├── model
+    │   ├── Autor.py
+    │   ├── Categoria.py
+    │   ├── Cliente.py
+    │   ├── Editorial.py
+    │   ├── Empleado.py
+    │   ├── Libro.py
+    │   ├── Rol.py
+    │   ├── VentaLibro.py
+    │   └── Venta.py
+    └── test.py
 ```
 
 ## 💼 Documentación
