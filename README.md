@@ -4,6 +4,11 @@
 
 Este desarrollo es un proyecto académico dentro de la materia **Análisis y Metodologías de Sistemas** de la carrera **Analista de Sistemas** de la **Escuela Da Vinci**.
 
+## 🧑‍🤝‍🧑 Integrantes
+
+- [Beceyro Ferrán Agustín](https://github.com/AgUsBF)
+- [Bielaszczuk Cristhian Emmanuel](https://github.com/1337B)
+
 ## 🎯 Objetivo
 
 Desarrollar una aplicación web para gestionar las operaciones de una librería.
@@ -25,8 +30,8 @@ El enfoque principal estará en la creación de una interfaz que facilite a los 
 
 - ☕ **Lenguaje:** Python
 - 💻 **Framework:** TBD
-<!-- - 🔗 **Conectividad:** -->
 - 🗃️ **Base de Datos:** TBD
+<!-- - 🔗 **Conectividad:** -->
 
 ## 💼 Documentación
 
