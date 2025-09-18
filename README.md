@@ -18,50 +18,21 @@ Desarrollar un sistema completo para gestionar las existencias y ventas en la li
 
 El enfoque principal estará en la creación de una interfaz que facilite a los empleados de YENNY registrar y gestionar libros, ajustar precios y procesar ventas de manera eficiente. La plataforma generará informes de ventas diarios y proporcionará estadísticas detalladas sobre la popularidad de los libros.
 
+> [!NOTE]  
+> **Alcance:** Se prevé desarrollar una primera versión (MVP) con las funcionalidades básicas y un roadmap para futuras mejoras.
+
 ## 🛠️ Tecnologías Utilizadas
 
 - ☕ **Lenguaje:** Python
-- 💻 **Framework:**
-- 🔗 **Conectividad:**
-- 🗃️ **Base de Datos:**
-
-## 📱 Funcionalidades
-
-- 📦 **ABM de libros, autores, marcas y categorias**
-- 👥 **ABM de empleados**
-- 🛒 **Gestión de ventas**
-- 📋 **Reportes de Ventas**
-
-## 🗂️ Estructura del Proyecto
-
-```bash
-dv-ayms
-├── docs
-│   ├── db
-│   │   ├── install.sql
-│   │   └── test_data.sql
-│   └── manual.md
-├── LICENSE
-├── README.md
-└── src
-    ├── model
-    │   ├── Autor.py
-    │   ├── Categoria.py
-    │   ├── Cliente.py
-    │   ├── Editorial.py
-    │   ├── Empleado.py
-    │   ├── Libro.py
-    │   ├── Rol.py
-    │   ├── VentaLibro.py
-    │   └── Venta.py
-    └── test.py
-```
+- 💻 **Framework:** TBD
+<!-- - 🔗 **Conectividad:** -->
+- 🗃️ **Base de Datos:** TBD
 
 ## 💼 Documentación
 
-La documentación de la aplicación se puede encontrar [aquí](./docs/manual.md).
+La documentación de la aplicación se puede encontrar en el [GitHub Wiki](https://github.com/AgUsBF-DV/dv-ayms/wiki) del repositorio.
 
-## 📸 Vistas
+<!-- ## 📸 Vistas -->
 
 ## 📄 Licencia
 
