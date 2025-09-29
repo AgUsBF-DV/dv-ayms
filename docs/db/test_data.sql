@@ -53,3 +53,48 @@ INSERT INTO autores_autor (nombre, apellido) VALUES
 ('Margarita', 'Salazar'),
 ('Oscar', 'García');
 
+-- CATEGORÍAS
+INSERT INTO categorias_categoria (nombre) VALUES
+('Ficción'),
+('No Ficción'),
+('Ciencia'),
+('Historia'),
+('Biografía'),
+('Fantasía'),
+('Misterio'),
+('Romance'),
+('Ciencia Ficción'),
+('Terror'),
+('Autoayuda'),
+('Desarrollo Personal'),
+('Literatura Infantil'),
+('Cocina'),
+('Viajes');
+
+-- EDITORIALES
+INSERT INTO editoriales_editorial (nombre) VALUES
+('Editorial Planeta'),
+('Penguin Random House'),
+('Grupo Anaya'),
+('Ediciones SM'),
+('HarperCollins'),
+('Alfaguara'),
+('Tusquets Editores'),
+('Roca Editorial'),
+('Ediciones B'),
+('Lumen'),
+('Anagrama'),
+('Ediciones Akal'),
+('Círculo de Lectores'),
+('Editorial Espasa'),
+('Ediciones Salamandra'),
+('Ediciones Urano'),
+('Editorial Océano'),
+('Ediciones Destino'),
+('Editorial Siruela'),
+('Editorial La Galera'),
+('Ediciones El País'),
+('Editorial Juventud'),
+('Ediciones del Serbal'),
+('Editorial Planeta de Agostini'),
+('Editorial Ediciones de la Torre');
