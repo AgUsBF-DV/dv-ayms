@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Autores</title>
+</head>
+<body>
+    <h1>Lista de Autores</h1>
+    <ul>
+        {% for autor in autores %}
+            <li>{{ autor }}</li>
+        {% empty %}
+            <li>No hay autores disponibles.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

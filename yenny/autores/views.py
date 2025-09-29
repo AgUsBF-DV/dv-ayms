@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Autor
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Página de Autores en construcción.")
+    autores = Autor.objects.all()
+    return render(request, 'index.html', {'autores': autores})
