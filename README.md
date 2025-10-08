@@ -42,3 +42,42 @@ La documentación de la aplicación se puede encontrar en el [GitHub Wiki](https
 ## 📄 Licencia
 
 Este proyecto es parte del trabajo académico de la Escuela Da Vinci y se comparte bajo **GNU-GPL V3**.
+## 1) Prerrequisitos
+
+- Python 3.12+
+- pip actualizado
+- PostgreSQL 14+ (con `psql`) **o** Docker Desktop para levantar Postgres con `docker compose`
+- (Opcional) Make
+
+## 2) Clonar y crear entorno
+
+> **macOS / Linux**
+```bash
+git clone <repo-url> dvayms
+cd dvayms
+python -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+> Windows
+```git clone <repo-url> dvayms
+cd dvayms
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+## 3) Configurar base de datos
+
+Copiar el archivo `.env.example` a `.env` y completar las variables de entorno.
+
+Correr en macOS / Linux:
+```bash
+psql -h 127.0.0.1 -U postgres -f docs/db/install.sql
+```
+Correr en Windows (PowerShell):
+```powershell
+psql -h 127.0.0.1 -U postgres -f .\docs\db\install.sql
+```
