@@ -3,8 +3,8 @@ import environ
 import os
 
 # --- Paths (repo root -> backend/frontend) ---
-REPO_DIR = Path(__file__).resolve().parent.parent.parent  # .../dvayms
-BASE_DIR = REPO_DIR / "backend"                           # donde está manage.py
+REPO_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = REPO_DIR / "backend"
 FRONTEND_DIR = REPO_DIR / "frontend"
 
 # --- Env ---
@@ -25,7 +25,6 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 DEBUG = env("DJANGO_DEBUG")
 ALLOWED_HOSTS = [h.strip() for h in env("DJANGO_ALLOWED_HOSTS").split(",")]
 
-# --- Apps ---
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -33,17 +32,19 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # Agregarás apps propias luego: "core", "catalog", "sales", "reports", "common"
+    "common",
+    "core",
 ]
 
 # --- Middleware ---
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # sirve estáticos en prod/dev
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "core.middleware.rbac.RBACMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -108,3 +109,19 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "login"
+
+# --- Custom User Model ---
+AUTH_USER_MODEL = "core.Employee"
+
+# --- Authentication Backends ---
+AUTHENTICATION_BACKENDS = [
+    "core.auth_backends.EmailOrUsernameBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+# --- RBAC Configuration ---
+RBAC_ADMIN_PATHS = [
+    "/employees/",
+    "/price-adjustments/",
+    "/reports/",
+]
