@@ -21,5 +21,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('autores/', include('autores.urls')),
     path('categorias/', include('categorias.urls')),
+    path('clientes/', include('clientes.urls')),
     path('editoriales/', include('editoriales.urls')),
+    path('empleados/', include('empleados.urls')),
+    path('libros/', include('libros.urls')),
+    path('ventas/', include('ventas.urls')),
+
 ]

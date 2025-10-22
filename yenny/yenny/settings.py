@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'autores.apps.AutoresConfig',
     'categorias.apps.CategoriasConfig',
+    'clientes.apps.ClientesConfig',
     'editoriales.apps.EditorialesConfig',
+    'empleados.apps.EmpleadosConfig',
+    'libros.apps.LibrosConfig',
+    'ventas.apps.VentasConfig',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +131,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom user model
+AUTH_USER_MODEL = 'empleados.Empleado'
