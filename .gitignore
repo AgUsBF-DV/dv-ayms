@@ -532,3 +532,8 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/node
+
+
+
+# Archivos CSS generados automáticamente por compresores o herramientas de build
+yenny/static/CACHE/css/output.*.css

@@ -1,0 +1,13 @@
+/* static/src/input.css */
+
+/* Tailwind CSS */
+@import "tailwindcss";
+
+/* Flowbite default theme */
+@import "flowbite/src/themes/default";
+
+/* Flowbite plugin */
+@plugin "flowbite/plugin";
+
+/* Flowbite source */
+@source "../../node_modules/flowbite";
