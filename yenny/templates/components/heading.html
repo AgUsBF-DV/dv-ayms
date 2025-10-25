@@ -1,0 +1,9 @@
+{% if size == "h1" %}
+  <h1 class="text-3xl text-green-800 font-bold">{{ text }}</h1>
+{% elif size == "h2" %}
+  <h2 class="text-2xl text-green-700 font-semibold">{{ text }}</h2>
+{% elif size == "h3" %}
+  <h3 class="text-xl text-green-600 font-medium">{{ text }}</h3>
+{% else %}
+  <span>{{ text }}</span>
+{% endif %}

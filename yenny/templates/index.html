@@ -1,7 +1,37 @@
-<!-- templates/index.html -->
-
 {% extends "_base.html" %}
 
 {% block content %}
-  <h1 class="text-3xl text-green-800">Django + Tailwind CSS + Flowbite</h1>
-{% endblock content %}
+
+  {% include "components/heading.html" with size="h1" text="Django + Tailwind CSS + Flowbite" %}
+
+  <ul class="mt-6 space-y-2">
+    <li>
+      <a href="/" class="text-blue-700 hover:underline">Inicio</a>
+    </li>
+    <li>
+      <a href="/autores/" class="text-blue-700 hover:underline">Autores</a>
+    </li>
+    <li>
+      <a href="/categorias/" class="text-blue-700 hover:underline">Categorías</a>
+    </li>
+    <li>
+      <a href="/clientes/" class="text-blue-700 hover:underline">Clientes</a>
+    </li>
+    <li>
+      <a href="/editoriales/" class="text-blue-700 hover:underline">Editoriales</a>
+    </li>
+    <li>
+      <a href="/empleados/" class="text-blue-700 hover:underline">Empleados</a>
+    </li>
+    <li>
+      <a href="/libros/" class="text-blue-700 hover:underline">Libros</a>
+    </li>
+    <li>
+      <a href="/ventas/" class="text-blue-700 hover:underline">Ventas</a>
+    </li>
+    <li>
+      <a href="/admin/" class="text-blue-700 hover:underline">Admin</a>
+    </li>
+  </ul>
+
+  {% endblock content %}

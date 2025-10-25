@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Categorias</title>
-</head>
-<body>
-    <h1>Lista de Categorías</h1>
-    <ul>
+{% extends "_base.html" %}
+
+{% block content %}
+
+    {% include "components/heading.html" with size="h1" text="Lista de Categorías" %}
+
+    <ul class="mt-6 space-y-2">
         {% for categoria in categorias %}
             <li>{{ categoria }}</li>
         {% empty %}
             <li>No hay categorías disponibles.</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+
+{% endblock content %}

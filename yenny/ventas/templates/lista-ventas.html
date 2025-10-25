@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ventas</title>
-</head>
-<body>
-    <h1>Lista de Ventas</h1>
-    <ul>
+{% extends "_base.html" %}
+
+{% block content %}
+
+    {% include "components/heading.html" with size="h1" text="Lista de Ventas" %}
+
+    <ul class="mt-6 space-y-2">
         {% for venta in ventas %}
             <li>
                 {{ venta }}
@@ -23,5 +20,5 @@
             <li>No hay ventas disponibles.</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+
+{% endblock content %}

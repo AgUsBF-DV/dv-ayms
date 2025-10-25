@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Editoriales</title>
-</head>
-<body>
-    <h1>Lista de Editoriales</h1>
-    <ul>
+{% extends "_base.html" %}
+
+{% block content %}
+
+    {% include "components/heading.html" with size="h1" text="Lista de Editoriales" %}
+
+    <ul class="mt-6 space-y-2">
         {% for editorial in editoriales %}
             <li>{{ editorial }}</li>
         {% empty %}
             <li>No hay editoriales disponibles.</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+
+{% endblock content %}
