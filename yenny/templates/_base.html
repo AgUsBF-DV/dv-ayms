@@ -3,25 +3,34 @@
 
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Libreria Yenny</title>
+        <title>Libreria Yenny</title>
 
-    {% compress css %}
-    <link rel="stylesheet" href="{% static 'src/output.css' %}" />
-    {% endcompress %}
-    <link rel="icon" type="image/png" href="{% static 'img/red-book.png' %}" />
-  </head>
+        {% compress css %}
+            <link rel="stylesheet" href="{% static 'src/output.css' %}" />
+        {% endcompress %}
 
-  <body class="bg-green-50">
-    <div class="container mx-auto mt-4">
-      {% block content %}
-      {% endblock content %}
-    </div>
+        <link rel="icon" type="image/png" href="{% static 'img/red-book.png' %}" />
+    </head>
 
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-  </body>
+    <body class="bg-green-50">
+        <div class="min-h-screen flex flex-col">
+
+            {% include "partials/navbar.html" %}
+
+              <div class="container mx-auto mt-28 flex-1">
+                  {% block content %}
+                  {% endblock content %}
+              </div>
+
+            {% include "partials/footer.html" %}
+
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    </body>
 </html>
