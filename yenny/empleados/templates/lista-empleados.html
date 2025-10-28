@@ -2,14 +2,6 @@
 
 {% block content %}
 
-    {% include "components/heading.html" with size="h1" texto="Lista de Empleados" %}
-
-    <ul class="mt-6 space-y-2">
-        {% for empleado in empleados %}
-            <li>{{ empleado }}</li>
-        {% empty %}
-            <li>No hay empleados disponibles.</li>
-        {% endfor %}
-    </ul>
+    {% include "components/table.html" %}
 
 {% endblock content %}
