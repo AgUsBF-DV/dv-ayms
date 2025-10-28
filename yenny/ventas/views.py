@@ -5,7 +5,7 @@ from .models import Venta
 # Create your views here.
 def index(request):
     ventas = Venta.objects.all()
-    paginador = Paginator(ventas, 10)  # 10 registros por página
+    paginador = Paginator(ventas, 10)
     num_pag = request.GET.get('page')
     objeto_pag = paginador.get_page(num_pag)
 
@@ -17,7 +17,7 @@ def index(request):
             getattr(venta, 'cliente', ''),
             getattr(venta, 'fecha', ''),
             getattr(venta, 'total', ''),
-            '',  # columna de acciones
+            '',  # para la botonera
         ])
 
     context = {
