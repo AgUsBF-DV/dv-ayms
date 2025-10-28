@@ -2,36 +2,26 @@
 
 {% block content %}
 
-  {% include "components/heading.html" with size="h1" texto="Librería" %}
+    {% include "components/heading.html" with size="h1" texto="Librería" %}
 
-  <ul class="mt-6 space-y-2">
-    <li>
-      <a href="/" class="text-blue-700 hover:underline">Inicio</a>
-    </li>
-    <li>
-      <a href="/autores/" class="text-blue-700 hover:underline">Autores</a>
-    </li>
-    <li>
-      <a href="/categorias/" class="text-blue-700 hover:underline">Categorías</a>
-    </li>
-    <li>
-      <a href="/clientes/" class="text-blue-700 hover:underline">Clientes</a>
-    </li>
-    <li>
-      <a href="/editoriales/" class="text-blue-700 hover:underline">Editoriales</a>
-    </li>
-    <li>
-      <a href="/empleados/" class="text-blue-700 hover:underline">Empleados</a>
-    </li>
-    <li>
-      <a href="/libros/" class="text-blue-700 hover:underline">Libros</a>
-    </li>
-    <li>
-      <a href="/ventas/" class="text-blue-700 hover:underline">Ventas</a>
-    </li>
-    <li>
-      <a href="/admin/" class="text-blue-700 hover:underline">Admin</a>
-    </li>
-  </ul>
+    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        {% include "components/dashboard-card.html" with titulo="Autores" descripcion="Gestión de autores" url="/autores/" %}
+
+        {% include "components/dashboard-card.html" with titulo="Categorías" descripcion="Gestión de categorías" url="/categorias/" %}
+
+        {% include "components/dashboard-card.html" with titulo="Clientes" descripcion="Gestión de clientes" url="/clientes/" %}
+
+        {% include "components/dashboard-card.html" with titulo="Editoriales" descripcion="Gestión de editoriales" url="/editoriales/" %}
+
+        {% include "components/dashboard-card.html" with titulo="Empleados" descripcion="Gestión de empleados" url="/empleados/" %}
+
+        {% include "components/dashboard-card.html" with titulo="Libros" descripcion="Gestión de libros" url="/libros/" %}
+
+        {% include "components/dashboard-card.html" with titulo="Ventas" descripcion="Gestión de ventas" url="/ventas/" %}
+
+    </div>
+
+    <a href="/admin/" class="text-blue-700 hover:underline">Panel Login Admin</a>
 
   {% endblock content %}
