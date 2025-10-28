@@ -2,14 +2,6 @@
 
 {% block content %}
 
-    {% include "components/heading.html" with size="h1" texto="Lista de Autores" %}
-
-    <ul class="mt-6 space-y-2">
-        {% for autor in autores %}
-            <li>{{ autor }}</li>
-        {% empty %}
-            <li>No hay autores disponibles.</li>
-        {% endfor %}
-    </ul>
+    {% include "components/table.html" %}
 
 {% endblock content %}
