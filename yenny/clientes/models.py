@@ -7,4 +7,4 @@ class Cliente(models.Model):
     correo = models.EmailField(unique=True)
 
     def __str__(self):
-        return f"{self.nombre} {self.apellido} (ID:{self.id} - {self.correo})"
+        return f"{self.nombre} {self.apellido} (ID:{self.id})"

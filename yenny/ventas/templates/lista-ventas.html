@@ -2,23 +2,6 @@
 
 {% block content %}
 
-    {% include "components/heading.html" with size="h1" texto="Lista de Ventas" %}
-
-    <ul class="mt-6 space-y-2">
-        {% for venta in ventas %}
-            <li>
-                {{ venta }}
-                <ul>
-                    {% for item in venta.detalle %}
-                        <li>{{ item }}</li>
-                    {% empty %}
-                        <li>No hay libros en esta venta.</li>
-                    {% endfor %}
-                </ul>
-            </li>
-        {% empty %}
-            <li>No hay ventas disponibles.</li>
-        {% endfor %}
-    </ul>
+    {% include "components/table.html" %}
 
 {% endblock content %}
