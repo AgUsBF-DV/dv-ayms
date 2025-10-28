@@ -2,14 +2,6 @@
 
 {% block content %}
 
-    {% include "components/heading.html" with size="h1" texto="Lista de Libros" %}
-
-    <ul class="mt-6 space-y-2">
-        {% for libro in libros %}
-            <li>{{ libro }}</li>
-        {% empty %}
-            <li>No hay libros disponibles.</li>
-        {% endfor %}
-    </ul>
+    {% include "components/table.html" %}
 
 {% endblock content %}
