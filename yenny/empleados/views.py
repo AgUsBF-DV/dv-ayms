@@ -1,30 +1,27 @@
-from django.shortcuts import render
-from django.core.paginator import Paginator
+from django.views.generic import ListView
 from .models import Empleado
 
-# Create your views here.
-def index(request):
-    empleados = Empleado.objects.all()
-    paginator = Paginator(empleados, 10)
-    page_number = request.GET.get('page')
-    objeto_pag = paginator.get_page(page_number)
+class EmpleadoListView(ListView):
+    model = Empleado
+    template_name = 'lista-empleados.html'
+    paginate_by = 10
 
-    columnas = ['ID', 'Nombre', 'Apellido', 'Email', 'Rol', 'Acciones']
-    registros = []
-    for empleado in objeto_pag:
-        registros.append([
-            empleado.id,
-            getattr(empleado, 'first_name', ''),
-            getattr(empleado, 'last_name', ''),
-            getattr(empleado, 'email', ''),
-            getattr(empleado, 'rol', ''),
-            '',  # para la botonera
-        ])
-
-    context = {
-        'titulo': 'Lista de Empleados',
-        'columnas': columnas,
-        'registros': registros,
-        'objeto_pag': objeto_pag,
-    }
-    return render(request, 'lista-empleados.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        columnas = ['ID', 'Nombre', 'Apellido', 'Acciones']
+        objeto_pag = context['page_obj']
+        registros = []
+        for empleado in objeto_pag:
+            registros.append([
+                empleado.id,
+                getattr(empleado, 'nombre', ''),
+                getattr(empleado, 'apellido', ''),
+                '',  # para la botonera
+            ])
+        context.update({
+            'titulo': 'Lista de Empleados',
+            'columnas': columnas,
+            'registros': registros,
+            'objeto_pag': objeto_pag,
+        })
+        return context

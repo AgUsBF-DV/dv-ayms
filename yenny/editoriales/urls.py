@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
+from .views import EditorialListView
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', EditorialListView.as_view(), name='editorial-list'),
 ]

@@ -1,27 +1,26 @@
-from django.shortcuts import render
-from django.core.paginator import Paginator
+from django.views.generic import ListView
 from .models import Editorial
 
-# Create your views here.
-def index(request):
-    editoriales = Editorial.objects.all()
-    paginator = Paginator(editoriales, 10)
-    page_number = request.GET.get('page')
-    objeto_pag = paginator.get_page(page_number)
+class EditorialListView(ListView):
+    model = Editorial
+    template_name = 'lista-editoriales.html'
+    paginate_by = 10
 
-    columnas = ['ID', 'Nombre', 'Acciones']
-    registros = []
-    for editorial in objeto_pag:
-        registros.append([
-            editorial.id,
-            getattr(editorial, 'nombre', ''),
-            '',  # para la botonera
-        ])
-
-    context = {
-        'titulo': 'Lista de Editoriales',
-        'columnas': columnas,
-        'registros': registros,
-        'objeto_pag': objeto_pag,
-    }
-    return render(request, 'lista-editoriales.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        columnas = ['ID', 'Nombre', 'Acciones']
+        objeto_pag = context['page_obj']
+        registros = []
+        for editorial in objeto_pag:
+            registros.append([
+                editorial.id,
+                getattr(editorial, 'nombre', ''),
+                '',  # para la botonera
+            ])
+        context.update({
+            'titulo': 'Lista de Editoriales',
+            'columnas': columnas,
+            'registros': registros,
+            'objeto_pag': objeto_pag,
+        })
+        return context

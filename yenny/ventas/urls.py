@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
+from .views import VentaListView
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', VentaListView.as_view(), name='venta-list'),
 ]

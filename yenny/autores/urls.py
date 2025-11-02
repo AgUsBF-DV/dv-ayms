@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
+from .views import AutorListView
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', AutorListView.as_view(), name='autor-list'),
 ]
