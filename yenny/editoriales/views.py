@@ -1,4 +1,5 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from .forms import EditorialForm
 from .models import Editorial
 
 class EditorialListView(ListView):
@@ -19,8 +20,27 @@ class EditorialListView(ListView):
             ])
         context.update({
             'titulo': 'Lista de Editoriales',
+            'path_crear': '/editoriales/nuevo/',
+            'texto_crear': '+ Nueva Editorial',
             'columnas': columnas,
             'registros': registros,
             'objeto_pag': objeto_pag,
         })
         return context
+
+class EditorialCreateView(CreateView):
+    model = Editorial
+    form_class = EditorialForm
+    template_name = 'editorial-form.html'
+    success_url = '/editoriales/'
+
+class EditorialUpdateView(UpdateView):
+    model = Editorial
+    form_class = EditorialForm
+    template_name = 'editorial-form.html'
+    success_url = '/editoriales/'
+
+class EditorialDeleteView(DeleteView):
+    model = Editorial
+    template_name = 'editorial-confirm-delete.html'
+    success_url = '/editoriales/'

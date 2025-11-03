@@ -1,4 +1,5 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from .forms import VentaForm
 from .models import Venta
 
 class VentaListView(ListView):
@@ -21,8 +22,27 @@ class VentaListView(ListView):
             ])
         context.update({
             'titulo': 'Lista de Ventas',
+            'path_crear': '/ventas/nuevo/',
+            'texto_crear': '+ Nueva Venta',
             'columnas': columnas,
             'registros': registros,
             'objeto_pag': objeto_pag,
         })
         return context
+
+class VentaCreateView(CreateView):
+    model = Venta
+    form_class = VentaForm
+    template_name = 'venta-form.html'
+    success_url = '/ventas/'
+
+class VentaUpdateView(UpdateView):
+    model = Venta
+    form_class = VentaForm
+    template_name = 'venta-form.html'
+    success_url = '/ventas/'
+
+class VentaDeleteView(DeleteView):
+    model = Venta
+    template_name = 'venta-confirm-delete.html'
+    success_url = '/ventas/'

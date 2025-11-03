@@ -1,9 +1,6 @@
-from django.shortcuts import render
-from django.core.paginator import Paginator
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from .forms import AutorForm
 from .models import Autor
-
-# Create your views here.
-from django.views.generic import ListView
 
 class AutorListView(ListView):
     model = Autor
@@ -24,8 +21,27 @@ class AutorListView(ListView):
             ])
         context.update({
             'titulo': 'Lista de Autores',
+            'path_crear': '/autores/nuevo/',
+            'texto_crear': '+ Nuevo Autor',
             'columnas': columnas,
             'registros': registros,
             'objeto_pag': objeto_pag,
         })
         return context
+
+class AutorCreateView(CreateView):
+    model = Autor
+    form_class = AutorForm
+    template_name = 'autor-form.html'
+    success_url = '/autores/'
+
+class AutorUpdateView(UpdateView):
+    model = Autor
+    form_class = AutorForm
+    template_name = 'autor-form.html'
+    success_url = '/autores/'
+
+class AutorDeleteView(DeleteView):
+    model = Autor
+    template_name = 'autor-confirm-delete.html'
+    success_url = '/autores/'

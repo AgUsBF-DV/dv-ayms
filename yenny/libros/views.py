@@ -1,4 +1,5 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from .forms import LibroForm
 from .models import Libro
 
 class LibroListView(ListView):
@@ -20,8 +21,27 @@ class LibroListView(ListView):
             ])
         context.update({
             'titulo': 'Lista de Libros',
+            'path_crear': '/libros/nuevo/',
+            'texto_crear': '+ Nuevo Libro',
             'columnas': columnas,
             'registros': registros,
             'objeto_pag': objeto_pag,
         })
         return context
+
+class LibroCreateView(CreateView):
+    model = Libro
+    form_class = LibroForm
+    template_name = 'libro-form.html'
+    success_url = '/libros/'
+
+class LibroUpdateView(UpdateView):
+    model = Libro
+    form_class = LibroForm
+    template_name = 'libro-form.html'
+    success_url = '/libros/'
+
+class LibroDeleteView(DeleteView):
+    model = Libro
+    template_name = 'libro-confirm-delete.html'
+    success_url = '/libros/'
