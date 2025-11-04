@@ -36,6 +36,12 @@ class VentaCreateView(CreateView):
     template_name = 'venta-form.html'
     success_url = '/ventas/'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        from libros.models import Libro
+        context['libros'] = Libro.objects.all()
+        return context
+
 class VentaUpdateView(UpdateView):
     model = Venta
     form_class = VentaForm
