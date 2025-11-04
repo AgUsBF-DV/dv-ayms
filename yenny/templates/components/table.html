@@ -1,9 +1,16 @@
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="flex justify-between items-center p-5 text-xl font-semibold text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+        <span>{{ titulo }}</span>
+
+        {% if path_crear and texto_crear %}
+            <a href="{{ path_crear }}"
+            class="inline-block px-4 py-2 text-sm font-medium text-white bg-green-600 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                {{ texto_crear }}
+            </a>
+        {% endif %}
+    </div>
+
     <table class="{{ clase|default:'w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400' }}">
-        <caption class="p-5 text-xl font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-            {{ titulo }}
-        </caption>
-        
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 {% for columna in columnas %}
@@ -30,38 +37,38 @@
     </table>
 </div>
 
-
+{# Paginador #}
 <div class="flex flex-col items-center mt-6">
-  <span class="text-sm text-gray-700 dark:text-gray-400">
-      Mostrando
-      <span class="font-semibold text-gray-900 dark:text-white">{{ objeto_pag.start_index }}</span>
-      a
-      <span class="font-semibold text-gray-900 dark:text-white">{{ objeto_pag.end_index }}</span>
-      de
-      <span class="font-semibold text-gray-900 dark:text-white">{{ objeto_pag.paginator.count }}</span>
-  </span>
+    <span class="text-sm text-gray-700 dark:text-gray-400">
+        Mostrando
+        <span class="font-semibold text-gray-900 dark:text-white">{{ objeto_pag.start_index }}</span>
+        a
+        <span class="font-semibold text-gray-900 dark:text-white">{{ objeto_pag.end_index }}</span>
+        de
+        <span class="font-semibold text-gray-900 dark:text-white">{{ objeto_pag.paginator.count }}</span>
+    </span>
 
-  <div class="inline-flex mt-2">
-      {% if objeto_pag.has_previous %}
-      <a href="?page={{ objeto_pag.previous_page_number }}"
-         class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-l-md hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          Previo
-      </a>
-      {% else %}
-      <span class="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-400 bg-gray-800 rounded-l-md dark:bg-gray-800 dark:border-gray-700 dark:text-gray-600 cursor-not-allowed">
-          Previo
-      </span>
-      {% endif %}
+    <div class="inline-flex mt-2">
+        {% if objeto_pag.has_previous %}
+            <a href="?page={{ objeto_pag.previous_page_number }}"
+                class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-l-md hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                Previo
+            </a>
+        {% else %}
+            <span class="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-400 bg-gray-800 rounded-l-md dark:bg-gray-800 dark:border-gray-700 dark:text-gray-600 cursor-not-allowed">
+                Previo
+            </span>
+        {% endif %}
 
-      {% if objeto_pag.has_next %}
-      <a href="?page={{ objeto_pag.next_page_number }}"
-         class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-r-md hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          Siguiente
-      </a>
-      {% else %}
-      <span class="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-400 bg-gray-800 rounded-r-md dark:bg-gray-800 dark:border-gray-700 dark:text-gray-600 cursor-not-allowed">
-          Siguiente
-      </span>
-      {% endif %}
-  </div>
+        {% if objeto_pag.has_next %}
+            <a href="?page={{ objeto_pag.next_page_number }}"
+                class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-r-md hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                Siguiente
+            </a>
+        {% else %}
+            <span class="flex items-center justify-center px-4 h-10 text-base font-medium text-gray-400 bg-gray-800 rounded-r-md dark:bg-gray-800 dark:border-gray-700 dark:text-gray-600 cursor-not-allowed">
+                Siguiente
+            </span>
+        {% endif %}
+    </div>
 </div>
