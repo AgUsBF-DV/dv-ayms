@@ -1,0 +1,54 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+    <section class="text-gray-900 bg-white dark:text-white dark:bg-gray-800 rounded-2xl max-w-lg mx-auto">
+        <div class="py-8 px-4 mx-auto max-w-md">
+
+            <h2 class="mb-6 text-xl text-center font-bold text-gray-900 dark:text-white">Agregar un nuevo libro</h2>
+
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                <div class="flex flex-col mb-4">
+                    <div class="flex flex-col justify-center mb-4">
+                        <label for="titulo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
+                        {{ form.titulo }}
+                    </div>
+
+                    <div class="flex flex-col justify-center mb-4">
+                        <label for="autor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Autor</label>
+                        {{ form.autor }}
+                    </div>
+
+                    <div class="flex flex-col justify-center mb-4">
+                        <label for="editorial" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Editorial</label>
+                        {{ form.editorial }}
+                    </div>
+
+                    <div class="flex flex-col justify-center mb-4">
+                        <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoría</label>
+                        {{ form.categoria }}
+                    </div>
+
+                    <div class="flex flex-col justify-center mb-4">
+                        <label for="precio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
+                        {{ form.precio }}
+                    </div>
+
+                    <div class="flex flex-col justify-center mb-4">
+                        <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
+                        {{ form.stock }}
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <button type="submit"
+                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Agregar Libro
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+{% endblock content %}
