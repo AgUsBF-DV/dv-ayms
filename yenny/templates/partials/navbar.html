@@ -15,23 +15,21 @@
             </span>
         </a>
 
-        <div class="flex md:order-2">
-            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
-                <!-- <a href="#" aria-current="page"
-                class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500">
-                    Home
-                </a> -->
-                <span class="block py-2 px-3 text-blue-500 dark:text-white">
-                    Hola usuario
-                </span>
-            </div>
+        {% if request.user.is_authenticated %}
+            <div class="flex md:order-2">
+                <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
+                    <span class="block py-2 px-3 text-blue-500 dark:text-white">
+                        Hola {{ request.user.first_name }}
+                    </span>
+                </div>
 
-            <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse pl-4">
-                <a href="#" aria-current="page"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Logout
-                </a>
+                <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse pl-4">
+                    <a href="{% url 'empleado-logout' %}" aria-current="page"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Logout
+                    </a>
+                </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 </nav>

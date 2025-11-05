@@ -30,3 +30,21 @@ class EmpleadoForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(
+        label='Email',
+        widget=forms.EmailInput(attrs={
+            'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white',
+            'placeholder': 'Email',
+            'required': True,
+        })
+    )
+    password = forms.CharField(
+        label='Contraseña',
+        widget=forms.PasswordInput(attrs={
+            'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white',
+            'placeholder': 'Contraseña',
+            'required': True,
+        })
+    )

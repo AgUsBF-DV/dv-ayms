@@ -9,14 +9,16 @@ class EmpleadoListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        columnas = ['ID', 'Nombre', 'Apellido', 'Acciones']
+        columnas = ['ID', 'Nombre', 'Apellido', 'Email', 'Rol', 'Acciones']
         objeto_pag = context['page_obj']
         registros = []
         for empleado in objeto_pag:
             registros.append([
                 empleado.id,
-                getattr(empleado, 'nombre', ''),
-                getattr(empleado, 'apellido', ''),
+                getattr(empleado, 'first_name', ''),
+                getattr(empleado, 'last_name', ''),
+                getattr(empleado, 'email', ''),
+                empleado.get_rol_display(),
                 '',  # para la botonera
             ])
         context.update({
@@ -45,3 +47,29 @@ class EmpleadoDeleteView(DeleteView):
     model = Empleado
     template_name = 'empleado-confirm-delete.html'
     success_url = '/empleados/'
+
+from django.contrib.auth import logout
+
+def logout_view(request):
+    logout(request)
+    return redirect('empleado-login')
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from .forms import LoginForm
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                form.add_error(None, 'Credenciales inválidas')
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
