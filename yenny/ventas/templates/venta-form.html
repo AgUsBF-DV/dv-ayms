@@ -38,7 +38,7 @@
                         <div class="grid grid-cols-2 gap-4 mb-4">
                             <div>
                                 <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Libro</label>
-                                <select name="libro" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <select name="libro" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                     <option value="" selected disabled>Seleccione el libro</option>
                                     {% for libro in libros %}
                                         <option value="{{ libro.id }}" data-precio="{{ libro.precio }}">{{ libro.titulo }} ({{ libro.autor }})</option>
@@ -48,17 +48,17 @@
 
                             <div>
                                 <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Cantidad</label>
-                                <input type="number" name="cantidad" min="1" value="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                <input type="number" name="cantidad" min="1" value="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
                             </div>
 
                             <div>
                                 <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Precio unitario</label>
-                                <input type="number" name="precio_unitario" step="0.01" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                <input type="number" name="precio_unitario" step="0.01" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
                             </div>
 
                             <div>
                                 <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Subtotal</label>
-                                <input type="number" name="subtotal" step="0.01" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                <input type="number" name="subtotal" step="0.01" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
                             </div>
                         </div>
 
@@ -74,6 +74,7 @@
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total de la venta</label>
                     <input type="number" name="total" id="total-venta" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
                 </div>
+ 
                 <script>
                 // JS para manejo dinámico de libros, precios y totales
                 document.addEventListener('DOMContentLoaded', function() {
@@ -120,6 +121,7 @@
                     // Agregar nuevas filas dinámicamente
                     document.querySelector('#venta-libros-list button').addEventListener('click', function() {
                         const row = firstRow.cloneNode(true);
+                        
                         // Limpiar valores
                         row.querySelector('select[name="libro"]').selectedIndex = 0;
                         row.querySelector('input[name="cantidad"]').value = 1;
