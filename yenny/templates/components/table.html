@@ -22,10 +22,10 @@
         <tbody>
             {% for fila in registros %}
                 <tr class="text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    {% for campo in fila %}
+                    {% for campo in fila.campos %}
                         <td class="px-6 py-4">
                             {% if forloop.last %}
-                                {% include "components/botonera.html" %}
+                                {% include "components/botonera.html" with objeto=fila.objeto modelo=modelo %}
                             {% else %}
                                 {{ campo }}
                             {% endif %}
