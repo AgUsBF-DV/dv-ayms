@@ -5,7 +5,13 @@
     <section class="text-gray-900 bg-white dark:text-white dark:bg-gray-800 rounded-2xl max-w-lg mx-auto">
         <div class="py-8 px-4 mx-auto max-w-md">
 
-                <h2 class="mb-6 text-xl text-center font-bold text-gray-900 dark:text-white">Agregar un nuevo autor</h2>
+                <h2 class="mb-6 text-xl text-center font-bold text-gray-900 dark:text-white">
+                    {% if form.instance.pk %}
+                        Datos del Autor
+                    {% else %}
+                        Agregar un nuevo Autor
+                    {% endif %}
+                </h2>
 
             <form method="post" class="space-y-6">
                 {% csrf_token %}
