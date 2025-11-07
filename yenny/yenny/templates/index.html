@@ -4,24 +4,28 @@
 
     {% include "components/heading.html" with size="h1" texto="Librería" %}
 
-    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
         {% include "components/dashboard-card.html" with titulo="Autores" descripcion="Gestión de autores" url="/autores/" %}
 
-        {% include "components/dashboard-card.html" with titulo="Categorías" descripcion="Gestión de categorías" url="/categorias/" %}
+        {% include "components/dashboard-card.html" with titulo="Libros" descripcion="Gestión de libros" url="/libros/" %}
 
         {% include "components/dashboard-card.html" with titulo="Clientes" descripcion="Gestión de clientes" url="/clientes/" %}
-
-        {% include "components/dashboard-card.html" with titulo="Editoriales" descripcion="Gestión de editoriales" url="/editoriales/" %}
-
-        {% include "components/dashboard-card.html" with titulo="Empleados" descripcion="Gestión de empleados" url="/empleados/" %}
-
-        {% include "components/dashboard-card.html" with titulo="Libros" descripcion="Gestión de libros" url="/libros/" %}
 
         {% include "components/dashboard-card.html" with titulo="Ventas" descripcion="Gestión de ventas" url="/ventas/" %}
 
     </div>
 
-    <a href="/admin/" class="text-blue-700 hover:underline">Panel Login Admin</a>
+    {% if request.user.rol == 'ADMIN' or request.user.rol == 'ENCARGADO' %}
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            {% include "components/dashboard-card.html" with titulo="Categorías" descripcion="Gestión de categorías" url="/categorias/" %}
+
+            {% include "components/dashboard-card.html" with titulo="Editoriales" descripcion="Gestión de editoriales" url="/editoriales/" %}
+
+            {% include "components/dashboard-card.html" with titulo="Empleados" descripcion="Gestión de empleados" url="/empleados/" %}
+
+        </div>
+    {% endif %}
 
   {% endblock content %}
