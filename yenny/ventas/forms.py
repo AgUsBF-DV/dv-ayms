@@ -1,7 +1,13 @@
 from django import forms
 from .models import Venta
+from clientes.models import Cliente
 
 class VentaForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        self.fields['cliente'].queryset = Cliente.objects.order_by('apellido', 'nombre')
+
     class Meta:
         model = Venta
         fields = ['cliente']
@@ -11,17 +17,13 @@ class VentaForm(forms.ModelForm):
             }),
         }
 
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
-        super().__init__(*args, **kwargs)
-
     def save(self, commit=True):
         instance = super().save(commit=False)
-        # Asignar empleado autenticado y fecha actual
-        if self.user:
-            instance.empleado = self.user
-        from django.utils import timezone
-        instance.fecha = timezone.now()
+        if not instance.pk:  # Solo asignar empleado y fecha para nuevas ventas
+            if self.user:
+                instance.empleado = self.user
+            from django.utils import timezone
+            instance.fecha = timezone.now()
         if commit:
             instance.save()
         return instance
