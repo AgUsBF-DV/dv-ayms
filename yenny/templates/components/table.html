@@ -18,14 +18,40 @@
                 {% endfor %}
             </tr>
         </thead>
-        
+
         <tbody>
             {% for fila in registros %}
                 <tr class="text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                     {% for campo in fila.campos %}
                         <td class="px-6 py-4">
                             {% if forloop.last %}
-                                {% include "components/botonera.html" with objeto=fila.objeto modelo=modelo %}
+                                {% if modelo == 'autor' or modelo == 'libro' or modelo == 'cliente' %}
+                                    {% if request.user.rol != 'ADMIN' and request.user.rol != 'ENCARGADO' %}
+                                        {% include "components/botonera.html" with objeto=fila.objeto modelo=modelo show_edit=True show_delete=False %}
+                                    {% else %}
+                                        {% include "components/botonera.html" with objeto=fila.objeto modelo=modelo show_edit=True show_delete=True %}
+                                    {% endif %}
+                                {% elif modelo == 'venta' %}
+                                    {% if request.user.rol != 'ADMIN' and request.user.rol != 'ENCARGADO' %}
+                                        {% include "components/botonera.html" with objeto=fila.objeto modelo=modelo show_edit=False show_delete=False %}
+                                    {% elif request.user.rol != 'ADMIN' %}
+                                        {% include "components/botonera.html" with objeto=fila.objeto modelo=modelo show_edit=True show_delete=False %}
+                                    {% else %}
+                                        {% include "components/botonera.html" with objeto=fila.objeto modelo=modelo show_edit=True show_delete=True %}
+                                    {% endif %}
+                                {% elif modelo == 'categoria' or modelo == 'editorial' %}
+                                    {% if request.user.rol != 'ADMIN' %}
+                                        {% include "components/botonera.html" with objeto=fila.objeto modelo=modelo show_edit=True show_delete=False %}
+                                    {% else %}
+                                        {% include "components/botonera.html" with objeto=fila.objeto modelo=modelo show_edit=True show_delete=True %}
+                                    {% endif %}
+                                {% elif modelo == 'empleado' %}
+                                    {% if request.user.rol != 'ADMIN' %}
+                                        {% include "components/botonera.html" with objeto=fila.objeto modelo=modelo show_edit=False show_delete=False %}
+                                    {% else %}
+                                        {% include "components/botonera.html" with objeto=fila.objeto modelo=modelo show_edit=True show_delete=True %}
+                                    {% endif %}
+                                {% endif %}
                             {% else %}
                                 {{ campo }}
                             {% endif %}
