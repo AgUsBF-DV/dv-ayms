@@ -5,11 +5,25 @@
     <section class="text-gray-900 bg-white dark:text-white dark:bg-gray-800 rounded-2xl max-w-lg mx-auto">
         <div class="py-8 px-4 mx-auto max-w-md">
 
-            <h2 class="mb-6 text-xl text-center font-bold text-gray-900 dark:text-white">Agregar un nuevo empleado</h2>
+                <h2 class="mb-6 text-xl text-center font-bold text-gray-900 dark:text-white">
+                    {% if form.instance.pk %}
+                        Datos del Empleado
+                    {% else %}
+                        Agregar un nuevo empleado
+                    {% endif %}
+                </h2>
 
             <form method="post" class="space-y-6">
                 {% csrf_token %}
                 <div class="flex flex-col mb-4">
+                    {% if form.instance.pk %}
+                        <div class="flex flex-col justify-center mb-4">
+                            <label for="id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID</label>
+                            <input type="text" id="id" name="id" value="{{ form.instance.pk }}" readonly disabled
+                                class="bg-gray-100 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-500" />
+                        </div>
+                    {% endif %}
+
                     <div class="flex flex-col justify-center mb-4">
                         <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
                         {{ form.first_name }}
@@ -31,12 +45,18 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center">
-                    <button type="submit"
-                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Agregar Empleado
-                    </button>
-                </div>
+                {% if not form.fields.first_name.widget.attrs.disabled %}
+                    <div class="flex justify-center">
+                        <button type="submit"
+                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            {% if form.instance.pk %}
+                                Guardar
+                            {% else %}
+                                Agregar Empleado
+                            {% endif %}
+                        </button>
+                    </div>
+                {% endif %}
             </form>
         </div>
     </section>
