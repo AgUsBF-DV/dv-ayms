@@ -1,0 +1,18 @@
+{% extends "_base.html" %}
+
+{% block content %}
+    <section class="max-w-lg mx-auto mt-10 bg-white dark:bg-gray-800 rounded-xl shadow p-8">
+        <h2 class="text-xl font-bold text-center text-gray-900 dark:text-white mb-6">Confirmar eliminación</h2>
+        
+        <p class="text-center text-gray-700 dark:text-gray-300 mb-6">
+            ¿Estás seguro que deseas eliminar el libro <strong>{{ object }}</strong>?
+        </p>
+        
+        <form method="post" class="flex flex-grid grid-cols-2 justify-center items-center gap-4">
+            {% csrf_token %}
+            <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Eliminar</button>
+            
+            <a href="/libros/" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">Cancelar</a>
+        </form>
+    </section>
+{% endblock %}
