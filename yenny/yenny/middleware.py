@@ -28,7 +28,9 @@ class LoginRequiredMiddleware:
             '/empleados/',
         ]
 
-        if request.user.is_authenticated and any(request.path.startswith(path) for path in admin_encargado_paths):
+        if (request.user.is_authenticated and 
+            any(request.path.startswith(path) for path in admin_encargado_paths) and 
+            request.path != '/empleados/logout/'):
             if request.user.rol not in ['ADMIN', 'ENCARGADO']:
                 return redirect('/')  # Redirigir al inicio
         
