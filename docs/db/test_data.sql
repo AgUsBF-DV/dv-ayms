@@ -135,12 +135,12 @@ INSERT INTO editoriales_editorial (nombre) VALUES
 -- EMPLEADOS
 -- Hash de la contraseña '123456' generada con PBKDF2
 INSERT INTO empleados_empleado (password, first_name, last_name, email, rol, is_superuser, is_staff, is_active, username, date_joined) VALUES
-('pbkdf2_sha256$1000000$w9Yz7NY2wEerzSWehOGfjN$DDhzA7kWHFkDt0YjZHZkx4SM3J+snAy4NH/VHMyb4Xk=', 'Juan', 'Pérez', 'juan.perez@email.com', 'ADMIN', true, true, true, 'juanp', '2025-10-21'),
-('pbkdf2_sha256$1000000$w9Yz7NY2wEerzSWehOGfjN$DDhzA7kWHFkDt0YjZHZkx4SM3J+snAy4NH/VHMyb4Xk=', 'María', 'Gómez', 'maria.gomez@email.com', 'ENCARGADO', true, false, true, 'mariag', '2025-10-21'),
-('pbkdf2_sha256$1000000$w9Yz7NY2wEerzSWehOGfjN$DDhzA7kWHFkDt0YjZHZkx4SM3J+snAy4NH/VHMyb4Xk=', 'Carlos', 'López', 'carlos.lopez@email.com', 'VENDEDOR', true, false, true, 'carlosl', '2025-10-21'),
-('pbkdf2_sha256$1000000$w9Yz7NY2wEerzSWehOGfjN$DDhzA7kWHFkDt0YjZHZkx4SM3J+snAy4NH/VHMyb4Xk=', 'Ana', 'Martínez', 'ana.martinez@email.com', 'VENDEDOR', true, false, true, 'anam', '2025-10-21'),
-('pbkdf2_sha256$1000000$w9Yz7NY2wEerzSWehOGfjN$DDhzA7kWHFkDt0YjZHZkx4SM3J+snAy4NH/VHMyb4Xk=', 'Lucía', 'Fernández', 'lucia.fernandez@email.com', 'ENCARGADO', true, false, true, 'luciaf', '2025-10-21'),
-('pbkdf2_sha256$1000000$w9Yz7NY2wEerzSWehOGfjN$DDhzA7kWHFkDt0YjZHZkx4SM3J+snAy4NH/VHMyb4Xk=', 'Pedro', 'Sánchez', 'pedro.sanchez@email.com', 'VENDEDOR', true, false, true, 'pedros', '2025-10-21');
+('pbkdf2_sha256$1000000$w9Yz7NY2wEerzSWehOGfjN$DDhzA7kWHFkDt0YjZHZkx4SM3J+snAy4NH/VHMyb4Xk=', 'Juan', 'Pérez', 'admin@yenny.com', 'ADMIN', true, true, true, 'admin@yenny.com', '2025-10-21'),
+('pbkdf2_sha256$1000000$w9Yz7NY2wEerzSWehOGfjN$DDhzA7kWHFkDt0YjZHZkx4SM3J+snAy4NH/VHMyb4Xk=', 'María', 'Gómez', 'encargada@yenny.com', 'ENCARGADO', true, false, true, 'encargada@yenny.com', '2025-10-21'),
+('pbkdf2_sha256$1000000$w9Yz7NY2wEerzSWehOGfjN$DDhzA7kWHFkDt0YjZHZkx4SM3J+snAy4NH/VHMyb4Xk=', 'Carlos', 'López', 'vendedor1@yenny.com', 'VENDEDOR', true, false, true, 'vendedor1@yenny.com', '2025-10-21'),
+('pbkdf2_sha256$1000000$w9Yz7NY2wEerzSWehOGfjN$DDhzA7kWHFkDt0YjZHZkx4SM3J+snAy4NH/VHMyb4Xk=', 'Ana', 'Martínez', 'vendedor2@yenny.com', 'VENDEDOR', true, false, true, 'vendedor2@yenny.com', '2025-10-21'),
+('pbkdf2_sha256$1000000$w9Yz7NY2wEerzSWehOGfjN$DDhzA7kWHFkDt0YjZHZkx4SM3J+snAy4NH/VHMyb4Xk=', 'Lucía', 'Fernández', 'vendedor3@yenny.com', 'ENCARGADO', true, false, true, 'vendedor3@yenny.com', '2025-10-21'),
+('pbkdf2_sha256$1000000$w9Yz7NY2wEerzSWehOGfjN$DDhzA7kWHFkDt0YjZHZkx4SM3J+snAy4NH/VHMyb4Xk=', 'Pedro', 'Sánchez', 'vendedor4@yenny.com', 'VENDEDOR', true, false, true, 'vendedor4@yenny.com', '2025-10-21');
 
 -- LIBROS
 INSERT INTO libros_libro (titulo, autor_id, editorial_id, categoria_id, precio, stock, created_at, updated_at) VALUES
