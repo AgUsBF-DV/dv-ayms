@@ -30,6 +30,39 @@
                     </div>
 
                     <div class="flex flex-col justify-center mb-4">
+                        <label for="autor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Autor Principal</label>
+                        {{ form.autor }}
+                        {% if form.autor.help_text %}
+                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ form.autor.help_text }}</p>
+                        {% endif %}
+                    </div>
+
+                    {% if form.autores_adicionales %}
+                    <div class="flex flex-col justify-center mb-4">
+                        <label for="autores_adicionales" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Autores Adicionales</label>
+                        {{ form.autores_adicionales }}
+                        {% if form.autores_adicionales.help_text %}
+                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ form.autores_adicionales.help_text }}</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    {% if form.instance.pk %}
+                    <div class="flex flex-col justify-center mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Todos los autores actuales</label>
+                        <div class="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                            {% for autor in form.instance.get_todos_los_autores %}
+                                <span class="inline-block px-2 py-1 mr-2 mb-2 text-sm bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded">
+                                    {{ autor }}
+                                </span>
+                            {% empty %}
+                                <span class="text-gray-500 dark:text-gray-400">Solo autor principal</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="flex flex-col justify-center mb-4">
                         <label for="autor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Autor</label>
                         {{ form.autor }}
                     </div>
