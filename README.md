@@ -36,6 +36,8 @@ El enfoque principal estará en la creación de una interfaz que facilite a los 
 
 ## 🚀 Configuración Rápida
 
+### ⚡ Un Solo Comando (Recomendado)
+
 #### **🐧 Linux / 🍎 macOS:**
 ```bash
 # 1. Clonar y navegar al proyecto
@@ -56,7 +58,7 @@ cd dvayms
 run.bat
 ```
 
-Los scripts detectan tu versión de Python automáticamente y configuran todo.
+**¡Eso es todo!** Los scripts detectan tu versión de Python automáticamente y configuran todo.
 
 ### 📋 Prerrequisitos
 - **Python 3.8+** (⚠️ Si usas Python 3.14, ver nota de compatibilidad abajo)
@@ -64,49 +66,31 @@ Los scripts detectan tu versión de Python automáticamente y configuran todo.
 - **PostgreSQL** (para base de datos)
 
 ### 🗒️ Documentación Específica
-- **🪟 Windows:** Ver `WINDOWS-SETUP.md` para guía detallada
-- **🐧 Linux/macOS:** Los scripts `.sh` funcionan directamente
-- PostgreSQL
-- Node.js & npm
-
-### Instalación Automática
-
-#### Python 3.8-3.13:
-```bash
-# 1. Clonar el repositorio
-git clone <repository-url>
-cd dvayms
-
-# 2. Ejecutar script de configuración automática
-bash setup.sh
-
-# 3. Iniciar servidor de desarrollo
-bash dev.sh
-```
-
-#### Python 3.14 (Compatibilidad):
-```bash
-# 1. Clonar el repositorio
-git clone <repository-url>
-cd dvayms
-
-# 2. Ejecutar script compatible con Python 3.14
-bash setup-python314.sh
-
-# 3. Iniciar servidor de desarrollo
-bash dev.sh
-```
-
-### Instalación Manual
-Ver [SETUP.md](SETUP.md) para instrucciones detalladas paso a paso.
+- **🪟 Windows:** Ver [WINDOWS-SETUP.md](WINDOWS-SETUP.md) para guía detallada
+- **🐧 Linux/macOS:** Ver [SETUP.md](SETUP.md) para guía detallada
+- **⚡ Referencia Rápida:** Ver [QUICK-REFERENCE.md](QUICK-REFERENCE.md) para comandos comunes
 
 ## 📋 Scripts Disponibles
 
+### **🐧 Linux/macOS:**
 | Script | Descripción |
 |--------|-------------|
-| `setup.sh` | Configuración inicial completa del proyecto |
-| `dev.sh` | Inicia el servidor de desarrollo |
-| `status.sh` | Verifica el estado de la configuración del proyecto |
+| `run.sh` | Configuración inicial completa con servidor |
+| `dev.sh` | Iniciar servidor de desarrollo |
+| `setup.sh` | Configuración inicial sin servidor |
+| `status.sh` | Verificar estado del proyecto |
+| `fix-psycopg.sh` | Fix para Python 3.14 |
+| `quick-fix.sh` | Solución rápida de problemas |
+
+### **🪟 Windows:**
+| Script | Descripción |
+|--------|-------------|
+| `run.bat` | Configuración inicial completa con servidor |
+| `dev.bat` | Iniciar servidor de desarrollo |
+| `setup.bat` | Configuración inicial sin servidor |
+| `status.bat` | Verificar estado del proyecto |
+| `fix-psycopg.bat` | Fix para Python 3.14 |
+| `quick-fix.bat` | Solución rápida de problemas |
 
 ## 🏗️ Estructura del Proyecto
 
@@ -148,49 +132,64 @@ dvayms/
 ### Comandos Útiles
 ```bash
 # Verificar estado del proyecto
-bash status.sh
+./status.sh    # Linux/macOS
+status.bat     # Windows
 
-# Crear migraciones
-cd yenny && python manage.py makemigrations
-
-# Aplicar migraciones
+# Crear y aplicar migraciones
+cd yenny
+python manage.py makemigrations
 python manage.py migrate
 
 # Crear superusuario
 python manage.py createsuperuser
 
-# Recompilar CSS (modo desarrollo)
-npm run build
-
-# Recompilar CSS (modo producción)
-npm run build-prod
+# Recompilar CSS
+npm run build        # Desarrollo
+npm run build-prod   # Producción
 ```
 
 ### URLs Principales
-- **Aplicación:** http://127.0.0.1:8000/
-- **Admin:** http://127.0.0.1:8000/admin/
-- **API Endpoints:** Según configuración en `urls.py` de cada módulo
+- **🏠 Aplicación:** http://127.0.0.1:8000/
+- **⚙️ Admin:** http://127.0.0.1:8000/admin/
+- **📚 Autores:** http://127.0.0.1:8000/autores/
+- **📖 Libros:** http://127.0.0.1:8000/libros/
+- **👥 Clientes:** http://127.0.0.1:8000/clientes/
+- **💰 Ventas:** http://127.0.0.1:8000/ventas/
 
 ## 💼 Documentación
 
-La documentación completa de la aplicación se puede encontrar en:
-- [SETUP.md](SETUP.md) - Guía de instalación detallada
-- [docs/](docs/) - Documentación técnica y diagramas
-- [GitHub Wiki](https://github.com/AgUsBF-DV/dv-ayms/wiki) - Wiki del repositorio
+- **[SETUP.md](SETUP.md)** - Guía completa para Linux/macOS
+- **[WINDOWS-SETUP.md](WINDOWS-SETUP.md)** - Guía completa para Windows
+- **[QUICK-REFERENCE.md](QUICK-REFERENCE.md)** - Comandos de referencia rápida
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Solución de problemas comunes
+- **[docs/](docs/)** - Documentación técnica y diagramas
 
 ## 🔍 Solución de Problemas
 
-### Problemas Comunes
-1. **Error de conexión a base de datos**: Verificar que PostgreSQL esté ejecutándose y la base de datos `yenny_db` exista
-2. **Migraciones pendientes**: Ejecutar `python manage.py migrate`
-3. **CSS no se actualiza**: Ejecutar `npm run build` para recompilar Tailwind
-4. **Módulos no encontrados**: Verificar que el entorno virtual esté activado
-
-### Verificación de Estado
+### Script de Diagnóstico
 ```bash
-# Ejecutar diagnóstico completo
-bash status.sh
+# Linux/macOS
+./status.sh
+
+# Windows
+status.bat
 ```
+
+### Scripts de Solución Rápida
+```bash
+# Linux/macOS
+./quick-fix.sh        # Solución automática de problemas
+./fix-psycopg.sh      # Fix específico para Python 3.14
+
+# Windows
+quick-fix.bat         # Solución automática de problemas
+fix-psycopg.bat       # Fix específico para Python 3.14
+```
+
+### Para Más Ayuda
+- **Problemas Generales:** Ver [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+- **Instalación Windows:** Ver [WINDOWS-SETUP.md](WINDOWS-SETUP.md)
+- **Instalación Linux/macOS:** Ver [SETUP.md](SETUP.md)
 
 ## 📄 Licencia
 
