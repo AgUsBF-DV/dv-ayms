@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from . import views
+from .api_views import LibrosApiView, AutoresApiView, ClientesApiView
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -29,4 +30,9 @@ urlpatterns = [
     path('empleados/', include('empleados.urls')),
     path('libros/', include('libros.urls')),
     path('ventas/', include('ventas.urls')),
+
+    # APIs para búsquedas dinámicas
+    path('api/libros/', LibrosApiView.as_view(), name='api_libros'),
+    path('api/autores/', AutoresApiView.as_view(), name='api_autores'),
+    path('api/clientes/', ClientesApiView.as_view(), name='api_clientes'),
 ]
