@@ -1,6 +1,7 @@
 from .forms import ClienteForm
 from .models import Cliente
 from django.db.models.deletion import ProtectedError
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -10,6 +11,21 @@ class ClienteListView(ListView):
     template_name = 'lista-clientes.html'
     paginate_by = 10
     ordering = ['apellido', 'nombre']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Obtener parámetros de filtro
+        nombre = self.request.GET.get('nombre')
+        apellido = self.request.GET.get('apellido')
+
+        # Aplicar filtros
+        if nombre:
+            queryset = queryset.filter(nombre__icontains=nombre)
+        if apellido:
+            queryset = queryset.filter(apellido__icontains=apellido)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -1,0 +1,130 @@
+<div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-6">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Filtros</h3>
+
+    <form method="GET" class="flex flex-wrap gap-4 items-end">
+        {% if modelo == 'autor' %}
+            <div class="flex-1 min-w-0">
+                <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre</label>
+                <input type="text" id="nombre" name="nombre" value="{{ request.GET.nombre }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar por nombre...">
+            </div>
+            <div class="flex-1 min-w-0">
+                <label for="apellido" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Apellido</label>
+                <input type="text" id="apellido" name="apellido" value="{{ request.GET.apellido }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar por apellido...">
+            </div>
+        {% elif modelo == 'libro' %}
+            <div class="flex-1 min-w-0">
+                <label for="titulo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título</label>
+                <input type="text" id="titulo" name="titulo" value="{{ request.GET.titulo }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar por título...">
+            </div>
+            <div class="flex-1 min-w-0">
+                <label for="autor" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Autor</label>
+                <input type="text" id="autor" name="autor" value="{{ request.GET.autor }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar por autor...">
+            </div>
+        {% elif modelo == 'cliente' %}
+            <div class="flex-1 min-w-0">
+                <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre</label>
+                <input type="text" id="nombre" name="nombre" value="{{ request.GET.nombre }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar por nombre...">
+            </div>
+            <div class="flex-1 min-w-0">
+                <label for="apellido" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Apellido</label>
+                <input type="text" id="apellido" name="apellido" value="{{ request.GET.apellido }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar por apellido...">
+            </div>
+        {% elif modelo == 'venta' %}
+            <div class="flex-1 min-w-0">
+                <label for="fecha_desde" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fecha desde</label>
+                <input type="date" id="fecha_desde" name="fecha_desde" value="{{ request.GET.fecha_desde }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+            <div class="flex-1 min-w-0">
+                <label for="fecha_hasta" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fecha hasta</label>
+                <input type="date" id="fecha_hasta" name="fecha_hasta" value="{{ request.GET.fecha_hasta }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+            <div class="flex-1 min-w-0">
+                <label for="cliente_busq" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Cliente</label>
+                <input type="text" id="cliente_busq" name="cliente_busq" value="{{ request.GET.cliente_busq }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar por cliente...">
+            </div>
+            <div class="flex-1 min-w-0">
+                <label for="libro_busq" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Libro/Autor</label>
+                <input type="text" id="libro_busq" name="libro_busq" value="{{ request.GET.libro_busq }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar por libro o autor...">
+            </div>
+        {% endif %}
+
+        <div class="flex gap-2">
+            <button type="submit"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                Filtrar
+            </button>
+            <a href="{{ request.path }}"
+               class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors">
+                Limpiar
+            </a>
+        </div>
+    </form>
+
+    {# Mostrar filtros activos #}
+    {% if request.GET.nombre or request.GET.apellido or request.GET.titulo or request.GET.autor or request.GET.fecha_desde or request.GET.fecha_hasta or request.GET.cliente_busq or request.GET.libro_busq %}
+        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Filtros activos:</p>
+            <div class="flex flex-wrap gap-2">
+                {% if request.GET.nombre %}
+                    <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm">
+                        Nombre: {{ request.GET.nombre }}
+                    </span>
+                {% endif %}
+                {% if request.GET.apellido %}
+                    <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm">
+                        Apellido: {{ request.GET.apellido }}
+                    </span>
+                {% endif %}
+                {% if request.GET.titulo %}
+                    <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm">
+                        Título: {{ request.GET.titulo }}
+                    </span>
+                {% endif %}
+                {% if request.GET.autor %}
+                    <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm">
+                        Autor: {{ request.GET.autor }}
+                    </span>
+                {% endif %}
+                {% if request.GET.fecha_desde %}
+                    <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm">
+                        Desde: {{ request.GET.fecha_desde }}
+                    </span>
+                {% endif %}
+                {% if request.GET.fecha_hasta %}
+                    <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm">
+                        Hasta: {{ request.GET.fecha_hasta }}
+                    </span>
+                {% endif %}
+                {% if request.GET.cliente_busq %}
+                    <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm">
+                        Cliente: {{ request.GET.cliente_busq }}
+                    </span>
+                {% endif %}
+                {% if request.GET.libro_busq %}
+                    <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm">
+                        Libro/Autor: {{ request.GET.libro_busq }}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+

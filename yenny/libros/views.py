@@ -1,6 +1,7 @@
 from .forms import LibroForm
 from .models import Libro
 from django.db.models.deletion import ProtectedError
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -11,16 +12,39 @@ class LibroListView(ListView):
     paginate_by = 10
     ordering = ['autor__apellido', 'titulo']
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Obtener parámetros de filtro
+        titulo = self.request.GET.get('titulo')
+        autor = self.request.GET.get('autor')
+
+        # Aplicar filtros
+        if titulo:
+            queryset = queryset.filter(titulo__icontains=titulo)
+        if autor:
+            queryset = queryset.filter(
+                Q(autor__nombre__icontains=autor) |
+                Q(autor__apellido__icontains=autor) |
+                Q(autores__nombre__icontains=autor) |
+                Q(autores__apellido__icontains=autor)
+            ).distinct()
+
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        columnas = ['ID', 'Título', 'Autor', 'Acciones']
+        columnas = ['ID', 'Título', 'Autores', 'Editorial', 'Precio', 'Stock', 'Acciones']
         objeto_pag = context['page_obj']
         registros = []
         for libro in objeto_pag:
             campos = [
                 libro.id,
                 getattr(libro, 'titulo', ''),
-                getattr(libro, 'autor', ''),
+                libro.get_autores_str(),  # Mostrar todos los autores
+                getattr(libro, 'editorial', ''),
+                f"${getattr(libro, 'precio', 0):.2f}",
+                getattr(libro, 'stock', 0),
                 '',  # para la botonera
             ]
             registros.append({'objeto': libro, 'campos': campos})

@@ -76,7 +76,7 @@
 
     <div class="inline-flex mt-2">
         {% if objeto_pag.has_previous %}
-            <a href="?page={{ objeto_pag.previous_page_number }}"
+            <a href="?page={{ objeto_pag.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
                 class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-l-md hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                 Previo
             </a>
@@ -87,7 +87,7 @@
         {% endif %}
 
         {% if objeto_pag.has_next %}
-            <a href="?page={{ objeto_pag.next_page_number }}"
+            <a href="?page={{ objeto_pag.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
                 class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-r-md hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                 Siguiente
             </a>
