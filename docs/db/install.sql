@@ -6,8 +6,8 @@ ALTER ROLE postgres SET default_transaction_isolation TO 'read committed';
 ALTER ROLE postgres SET timezone TO 'UTC';
 GRANT ALL PRIVILEGES ON DATABASE yenny_db TO postgres;
 
--- Requerimiento de psycopg2 para conectar a PostgreSQL desde Python
--- pip install psycopg2
+-- Requerimiento de psycopg para conectar a PostgreSQL desde Python
+-- pip install psycopg[binary]
 
 -- Migraciones iniciales de Django (ejecutar en la terminal)
 -- python manage.py makemigrations
