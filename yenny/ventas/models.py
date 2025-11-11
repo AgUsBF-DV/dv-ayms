@@ -45,52 +45,48 @@ class VentaLibro(models.Model):
         ordering = ["-id"]
 
     def calcular_subtotal(self):
+        """Calcula el subtotal basado en cantidad y precio unitario"""
         self.subtotal = (self.precio_unitario or 0) * (self.cantidad or 0)
 
     def save(self, *args, **kwargs):
-        # calcular subtotal y actualizar subtotal del item
+        # Si es una nueva instancia y no se ha establecido precio_unitario, usar el del libro
+        if not self.pk and not self.precio_unitario:
+            self.precio_unitario = self.libro.precio
+
+        # Calcular subtotal antes de guardar
         self.calcular_subtotal()
+
+        # Guardar la instancia
         super().save(*args, **kwargs)
-        # recalcular total de la venta y actualizar
+
+        # Recalcular total de la venta y actualizar
         try:
-            total = sum(item.subtotal for item in self.venta.libros.all())
-            self.venta.total = total
-            self.venta.save(update_fields=["total"])
-        except Exception:
-            pass
+            from .utils import calcular_total_venta
+            if self.venta:
+                calcular_total_venta(self.venta)
+        except Exception as e:
+            # Log the error but don't fail the save operation
+            import logging
+            logging.warning(f"Error updating venta total: {e}")
+
+    def delete(self, *args, **kwargs):
+        """Override delete to restore stock when a VentaLibro is deleted"""
+        # Restaurar stock antes de eliminar
+        if self.libro:
+            from .utils import restaurar_stock_libro
+            restaurar_stock_libro(self.libro, self.cantidad)
+
+        # Eliminar la instancia
+        super().delete(*args, **kwargs)
+
+        # Recalcular total de la venta
+        try:
+            from .utils import calcular_total_venta
+            if self.venta:
+                calcular_total_venta(self.venta)
+        except Exception as e:
+            import logging
+            logging.warning(f"Error updating venta total after delete: {e}")
 
     def __str__(self):
         return f"{self.cantidad} x {self.libro.titulo} (${self.precio_unitario}) = ${self.subtotal}"
-        venta = models.ForeignKey(
-            "Venta", on_delete=models.CASCADE, related_name="libros"
-        )
-        libro = models.ForeignKey(
-            "libros.Libro", on_delete=models.PROTECT, related_name="venta_libros"
-        )
-        cantidad = models.PositiveIntegerField(default=1)
-        precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
-        subtotal = models.DecimalField(max_digits=12, decimal_places=2, editable=False)
-
-        created_at = models.DateTimeField(auto_now_add=True)
-        updated_at = models.DateTimeField(auto_now=True)
-
-        class Meta:
-            ordering = ["-id"]
-
-        def calcular_subtotal(self):
-            self.subtotal = (self.precio_unitario or 0) * (self.cantidad or 0)
-
-        def save(self):
-            # calcular subtotal y actualizar subtotal del item
-            self.calcular_subtotal()
-            super().save()
-            # recalcular total de la venta y actualizar
-            try:
-                total = sum(item.subtotal for item in self.venta.libros.all())
-                self.venta.total = total
-                self.venta.save(update_fields=["total"])
-            except Exception:
-                pass
-
-        def __str__(self):
-            return f"{self.cantidad} x {self.libro.titulo} (${self.precio_unitario}) = ${self.subtotal}"
