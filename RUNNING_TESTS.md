@@ -365,9 +365,43 @@ python manage.py test clientes
 python manage.py test
 ```
 
-## 🏃‍♂️ Script de Automatización
+## 🏃‍♂️ Scripts de Automatización
 
-### Windows (run_tests.bat)
+### Windows (Batch Scripts)
+
+El proyecto incluye scripts automatizados para Windows que puedes ejecutar desde cualquier ubicación:
+
+#### Script Principal de Setup y Tests (run.bat)
+```batch
+# Desde cualquier directorio, ejecuta:
+.\scripts\windows\run.bat
+
+# El script automáticamente:
+# 1. Se mueve al directorio raíz del proyecto
+# 2. Activa el entorno virtual
+# 3. Configura el proyecto
+# 4. Ofrece ejecutar el servidor
+```
+
+#### Script Específico para Tests (test.bat)
+```batch
+# Ejecutar todos los tests
+.\scripts\windows\test.bat
+
+# Ejecutar tests específicos (ejemplos)
+.\scripts\windows\test.bat ventas
+.\scripts\windows\test.bat ventas.tests.test_models
+.\scripts\windows\test.bat ventas.tests.test_models.VentaLibroModelTest
+.\scripts\windows\test.bat ventas.tests.test_models.VentaLibroModelTest.test_subtotal_equals_cantidad_times_precio
+
+# El script automáticamente:
+# - Se mueve al directorio raíz
+# - Activa el entorno virtual
+# - Navega a yenny/
+# - Ejecuta los tests con verbose=2
+```
+
+### Windows (Batch Personalizado - Ejemplo)
 ```batch
 @echo off
 echo Activando entorno virtual...

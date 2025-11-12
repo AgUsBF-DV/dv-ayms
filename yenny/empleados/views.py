@@ -2,6 +2,7 @@ from .forms import EmpleadoForm, LoginForm
 from .models import Empleado
 from django.contrib.auth import authenticate, login, logout
 from django.db.models.deletion import ProtectedError
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -11,6 +12,27 @@ class EmpleadoListView(ListView):
     template_name = 'lista-empleados.html'
     paginate_by = 10
     ordering = ['last_name', 'first_name']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Obtener parámetros de filtro
+        nombre = self.request.GET.get('nombre')
+        apellido = self.request.GET.get('apellido')
+        email = self.request.GET.get('email')
+        rol = self.request.GET.get('rol')
+
+        # Aplicar filtros
+        if nombre:
+            queryset = queryset.filter(first_name__icontains=nombre)
+        if apellido:
+            queryset = queryset.filter(last_name__icontains=apellido)
+        if email:
+            queryset = queryset.filter(email__icontains=email)
+        if rol:
+            queryset = queryset.filter(rol=rol)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -39,7 +61,7 @@ class EmpleadoListView(ListView):
 
         if self.request.GET.get('error') == 'protected':
             context['error_message'] = "No se puede eliminar el empleado porque tiene ventas asociadas."
-        
+
         return context
 
 class EmpleadoCreateView(CreateView):
@@ -75,7 +97,7 @@ class EmpleadoDeleteView(DeleteView):
 # Vista de solo lectura para mostrar un empleado
 class EmpleadoShowView(EmpleadoUpdateView):
     template_name = 'empleado-form.html'
-    
+
     # Cargar el formulario en modo solo lectura
     def get_form(self, form_class=None):
         form = super().get_form(form_class)

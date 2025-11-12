@@ -1,6 +1,7 @@
 from .forms import EditorialForm
 from .models import Editorial
 from django.db.models.deletion import ProtectedError
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -10,6 +11,18 @@ class EditorialListView(ListView):
     template_name = 'lista-editoriales.html'
     paginate_by = 10
     ordering = ['nombre']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Obtener parámetros de filtro
+        nombre = self.request.GET.get('nombre')
+
+        # Aplicar filtros
+        if nombre:
+            queryset = queryset.filter(nombre__icontains=nombre)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -35,7 +48,7 @@ class EditorialListView(ListView):
 
         if self.request.GET.get('error') == 'protected':
             context['error_message'] = "No se puede eliminar la editorial porque tiene libros asociados."
-        
+
         return context
 
 class EditorialCreateView(CreateView):
@@ -64,7 +77,7 @@ class EditorialDeleteView(DeleteView):
 
 class EditorialShowView(EditorialUpdateView):
     template_name = 'editorial-form.html'
-    
+
     # Cargar el formulario en modo solo lectura
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -76,3 +89,4 @@ class EditorialShowView(EditorialUpdateView):
     # No permitir POST (no guardar cambios)
     def post(self, request, *args, **kwargs):
         return self.get(request, *args, **kwargs)
+

@@ -22,7 +22,6 @@ class LibroAutor(models.Model):
 
 class Libro(models.Model):
     titulo = models.CharField(max_length=255)
-    # Mantenemos el campo autor para compatibilidad (será el autor principal)
     autor = models.ForeignKey('autores.Autor', on_delete=models.PROTECT, related_name='libros_principal', null=True, blank=True)
     autores = models.ManyToManyField('autores.Autor', through='LibroAutor', related_name='libros_colaboracion', blank=True)
     editorial = models.ForeignKey('editoriales.Editorial', on_delete=models.PROTECT, related_name='libros')
@@ -55,8 +54,10 @@ class Libro(models.Model):
         return ", ".join([str(autor) for autor in autores])
 
     def save(self, *args, **kwargs):
+        is_new = not self.pk
         super().save(*args, **kwargs)
-        if self.autor and not self.libro_autores.filter(autor=self.autor).exists():
+
+        if is_new and self.autor and not self.libro_autores.filter(autor=self.autor).exists():
             LibroAutor.objects.create(
                 libro=self,
                 autor=self.autor,

@@ -6,7 +6,6 @@ from editoriales.models import Editorial
 from categorias.models import Categoria
 
 class LibroForm(forms.ModelForm):
-    # Campo para seleccionar múltiples autores
     autores_adicionales = forms.ModelMultipleChoiceField(
         queryset=Autor.objects.none(),
         widget=forms.SelectMultiple(attrs={
@@ -20,12 +19,12 @@ class LibroForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['autor'].queryset = Autor.objects.order_by('apellido', 'nombre')
-        self.fields['autor'].label = 'Autor Principal'
+        self.fields['autor'].label = 'Autor'
         self.fields['editorial'].queryset = Editorial.objects.order_by('nombre')
         self.fields['categoria'].queryset = Categoria.objects.order_by('nombre')
         self.fields['autores_adicionales'].queryset = Autor.objects.order_by('apellido', 'nombre')
 
-        # Si es una edición, cargar los autores adicionales
+
         if self.instance.pk:
             autores_adicionales = self.instance.autores.exclude(
                 id=self.instance.autor.id if self.instance.autor else None
@@ -35,7 +34,7 @@ class LibroForm(forms.ModelForm):
     class Meta:
         model = Libro
         fields = '__all__'
-        exclude = ['autores']  # Excluimos el campo ManyToMany directo
+        exclude = ['autores']
         widgets = {
             'titulo': forms.TextInput(attrs={
                 'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white',
@@ -66,10 +65,8 @@ class LibroForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=commit)
         if commit:
-            # Limpiar relaciones anteriores (excepto el autor principal)
             LibroAutor.objects.filter(libro=instance, es_autor_principal=False).delete()
 
-            # Agregar autores adicionales
             autores_adicionales = self.cleaned_data.get('autores_adicionales', [])
             orden = 2
             for autor in autores_adicionales:
@@ -83,6 +80,7 @@ class LibroForm(forms.ModelForm):
                 )
                 orden += 1
         return instance
+
 
 LibroAutorFormSet = inlineformset_factory(
     Libro,

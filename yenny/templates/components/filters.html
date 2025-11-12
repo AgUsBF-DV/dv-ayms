@@ -41,6 +41,49 @@
                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                        placeholder="Buscar por apellido...">
             </div>
+        {% elif modelo == 'categoria' %}
+            <div class="flex-1 min-w-0">
+                <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre</label>
+                <input type="text" id="nombre" name="nombre" value="{{ request.GET.nombre }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar por nombre de categoría...">
+            </div>
+        {% elif modelo == 'editorial' %}
+            <div class="flex-1 min-w-0">
+                <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre</label>
+                <input type="text" id="nombre" name="nombre" value="{{ request.GET.nombre }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar por nombre de editorial...">
+            </div>
+        {% elif modelo == 'empleado' %}
+            <div class="flex-1 min-w-0">
+                <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre</label>
+                <input type="text" id="nombre" name="nombre" value="{{ request.GET.nombre }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar por nombre...">
+            </div>
+            <div class="flex-1 min-w-0">
+                <label for="apellido" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Apellido</label>
+                <input type="text" id="apellido" name="apellido" value="{{ request.GET.apellido }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar por apellido...">
+            </div>
+            <div class="flex-1 min-w-0">
+                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                <input type="text" id="email" name="email" value="{{ request.GET.email }}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Buscar por email...">
+            </div>
+            <div class="flex-1 min-w-0">
+                <label for="rol" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Rol</label>
+                <select id="rol" name="rol"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="">Todos los roles</option>
+                    <option value="ADMIN" {% if request.GET.rol == 'ADMIN' %}selected{% endif %}>Administrador</option>
+                    <option value="ENCARGADO" {% if request.GET.rol == 'ENCARGADO' %}selected{% endif %}>Encargado</option>
+                    <option value="VENDEDOR" {% if request.GET.rol == 'VENDEDOR' %}selected{% endif %}>Vendedor</option>
+                </select>
+            </div>
         {% elif modelo == 'venta' %}
             <div class="flex-1 min-w-0">
                 <label for="fecha_desde" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fecha desde</label>
@@ -79,7 +122,7 @@
     </form>
 
     {# Mostrar filtros activos #}
-    {% if request.GET.nombre or request.GET.apellido or request.GET.titulo or request.GET.autor or request.GET.fecha_desde or request.GET.fecha_hasta or request.GET.cliente_busq or request.GET.libro_busq %}
+    {% if request.GET.nombre or request.GET.apellido or request.GET.titulo or request.GET.autor or request.GET.fecha_desde or request.GET.fecha_hasta or request.GET.cliente_busq or request.GET.libro_busq or request.GET.email or request.GET.rol %}
         <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Filtros activos:</p>
             <div class="flex flex-wrap gap-2">
@@ -91,6 +134,16 @@
                 {% if request.GET.apellido %}
                     <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm">
                         Apellido: {{ request.GET.apellido }}
+                    </span>
+                {% endif %}
+                {% if request.GET.email %}
+                    <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm">
+                        Email: {{ request.GET.email }}
+                    </span>
+                {% endif %}
+                {% if request.GET.rol %}
+                    <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm">
+                        Rol: {% if request.GET.rol == 'ADMIN' %}Administrador{% elif request.GET.rol == 'ENCARGADO' %}Encargado{% elif request.GET.rol == 'VENDEDOR' %}Vendedor{% else %}{{ request.GET.rol }}{% endif %}
                     </span>
                 {% endif %}
                 {% if request.GET.titulo %}

@@ -30,11 +30,8 @@
                     </div>
 
                     <div class="flex flex-col justify-center mb-4">
-                        <label for="autor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Autor Principal</label>
+                        <label for="autor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Autor</label>
                         {{ form.autor }}
-                        {% if form.autor.help_text %}
-                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ form.autor.help_text }}</p>
-                        {% endif %}
                     </div>
 
                     {% if form.autores_adicionales %}
@@ -62,10 +59,6 @@
                     </div>
                     {% endif %}
 
-                    <div class="flex flex-col justify-center mb-4">
-                        <label for="autor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Autor</label>
-                        {{ form.autor }}
-                    </div>
 
                     <div class="flex flex-col justify-center mb-4">
                         <label for="editorial" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Editorial</label>

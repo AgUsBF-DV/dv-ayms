@@ -1,15 +1,25 @@
 @echo off
 REM DVAYMS - One Command Setup para Windows
 REM Este script configura todo automáticamente en Windows
-REM NOTA: Este script debe ejecutarse desde la RAÍZ del proyecto
+REM NOTA: Se mueve automáticamente al directorio raíz del proyecto
+
+REM Obtener el directorio del script actual y navegar a la raíz del proyecto
+set SCRIPT_DIR=%~dp0
+set PROJECT_ROOT=%SCRIPT_DIR%..\..
+
+echo 📍 Navegando al directorio raíz del proyecto...
+cd /d "%PROJECT_ROOT%"
 
 REM Verificar si estamos en la raíz del proyecto
 if not exist "yenny\manage.py" (
-    echo ❌ Error: Este script debe ejecutarse desde la raíz del proyecto
-    echo 💡 Cambia al directorio raíz primero: cd /d "%~dp0..\.."
+    echo ❌ Error: No se puede encontrar el directorio raíz del proyecto
+    echo 💡 Verifica que la estructura del proyecto esté correcta
+    echo 📂 Buscando desde: %CD%
     pause
     exit /b 1
 )
+
+echo ✅ Directorio raíz encontrado: %CD%
 
 echo.
 echo 🚀 DVAYMS - Configuración Automática Completa (Windows)
@@ -52,7 +62,7 @@ cd ..
 call venv\Scripts\activate.bat
 
 REM Try to connect to database (Windows psql check)
-psql -h localhost -U postgres -d yenny_db -c "SELECT 1;" >nul 2>&1
+psql -h localhost -U postgres -d yenny_db -c "SELECT 1;" 2>NUL >NUL
 if %errorlevel% neq 0 (
     echo    ⚠️  Base de datos no encontrada - se configurará automáticamente
     set DB_EXISTS=false
@@ -82,12 +92,12 @@ if "%DB_EXISTS%"=="false" (
 
 REM Run migrations
 echo    🔄 Ejecutando migraciones...
-python manage.py makemigrations >nul 2>&1
-python manage.py migrate >nul 2>&1
+python manage.py makemigrations 2>NUL >NUL
+python manage.py migrate 2>NUL >NUL
 
 REM Create superuser if none exists
 echo    👑 Configurando usuario administrador...
-echo from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(is_superuser=True).exists() or User.objects.create_superuser('admin', 'admin@admin.com', 'admin') | python manage.py shell >nul 2>&1
+echo from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(is_superuser=True).exists() or User.objects.create_superuser('admin', 'admin@admin.com', 'admin') | python manage.py shell 2>NUL >NUL
 
 echo.
 echo 🎉 ¡CONFIGURACIÓN COMPLETA!

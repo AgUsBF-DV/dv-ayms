@@ -69,11 +69,44 @@ class LibroCreateView(CreateView):
     template_name = 'libro-form.html'
     success_url = '/libros/'
 
+    def form_valid(self, form):
+        libro = form.save()
+
+        # Crear relación con el autor principal
+        if libro.autor:
+            from .models import LibroAutor
+            LibroAutor.objects.get_or_create(
+                libro=libro,
+                autor=libro.autor,
+                defaults={
+                    'es_autor_principal': True,
+                    'orden': 1
+                }
+            )
+
+        return super().form_valid(form)
+
 class LibroUpdateView(UpdateView):
     model = Libro
     form_class = LibroForm
     template_name = 'libro-form.html'
     success_url = '/libros/'
+
+    def form_valid(self, form):
+        libro = form.save()
+
+        libro.libro_autores.all().delete()
+
+        if libro.autor:
+            from .models import LibroAutor
+            LibroAutor.objects.create(
+                libro=libro,
+                autor=libro.autor,
+                es_autor_principal=True,
+                orden=1
+            )
+
+        return super().form_valid(form)
 
 class LibroDeleteView(DeleteView):
     model = Libro
