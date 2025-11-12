@@ -1,0 +1,44 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="mb-6 p-4 text-gray-900 bg-white dark:text-white dark:bg-gray-800 rounded-lg">
+    <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+        Top 10 Autores Más Vendidos
+    </h2>
+    <p class="text-gray-600 dark:text-gray-400 mt-1">
+        Ranking de autores con mayor cantidad de libros vendidos
+    </p>
+</div>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                {% for columna in columnas %}
+                    <th scope="col" class="px-6 py-3 text-center">{{ columna }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for fila in registros %}
+                <tr class="text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    {% for campo in fila.campos %}
+                        <td class="px-6 py-4 {% if forloop.first %}font-bold text-lg{% endif %}">
+                            {{ campo }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="{{ columnas|length }}" class="px-6 py-4 text-center text-gray-500">
+                        No hay datos disponibles
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

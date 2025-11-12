@@ -30,6 +30,7 @@ urlpatterns = [
     path('empleados/', include('empleados.urls')),
     path('libros/', include('libros.urls')),
     path('ventas/', include('ventas.urls')),
+    path('reportes/', include('reportes.urls')),
 
     # APIs para búsquedas dinámicas
     path('api/libros/', LibrosApiView.as_view(), name='api_libros'),

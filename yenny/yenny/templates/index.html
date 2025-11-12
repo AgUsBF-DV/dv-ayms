@@ -28,4 +28,21 @@
         </div>
     {% endif %}
 
+    {# Sección de Reportes #}
+    <div class="mt-12">
+        {% include "components/heading.html" with size="h2" texto="Reportes" %}
+        
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            {% include "components/dashboard-card.html" with titulo="Ventas del Día" descripcion="Reporte de ventas diarias" url="/reportes/ventas-diarias/" %}
+
+            {% include "components/dashboard-card.html" with titulo="Top 10 Libros" descripcion="Libros más vendidos" url="/reportes/ranking-libros/" %}
+
+            {% include "components/dashboard-card.html" with titulo="Top 10 Autores" descripcion="Autores más vendidos" url="/reportes/ranking-autores/" %}
+
+            {% include "components/dashboard-card.html" with titulo="Top 10 Categorías" descripcion="Categorías más vendidas" url="/reportes/ranking-categorias/" %}
+
+        </div>
+    </div>
+
   {% endblock content %}
