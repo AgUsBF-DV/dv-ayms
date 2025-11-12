@@ -1,6 +1,15 @@
 @echo off
 REM DVAYMS - Fix psycopg para Python 3.14 en Windows
 REM Soluciona problemas de compatibilidad con psycopg2-binary en Python 3.14
+REM NOTA: Este script debe ejecutarse desde la RAÍZ del proyecto
+
+REM Verificar si estamos en la raíz del proyecto
+if not exist "yenny\manage.py" (
+    echo ❌ Error: Este script debe ejecutarse desde la raíz del proyecto
+    echo 💡 Cambia al directorio raíz primero: cd /d "%~dp0..\.."
+    pause
+    exit /b 1
+)
 
 echo.
 echo 🔧 DVAYMS - Fix psycopg para Python 3.14 (Windows)
@@ -9,7 +18,7 @@ echo ==================================================
 REM Check if virtual environment exists
 if not exist venv (
     echo ❌ Error: No se encontró el entorno virtual
-    echo 💡 Ejecuta primero: setup.bat
+    echo 💡 Ejecuta primero: scripts\windows\setup.bat
     pause
     exit /b 1
 )
@@ -65,7 +74,7 @@ if %errorlevel% equ 0 (
 ) else (
     echo.
     echo ❌ Error al aplicar el fix
-    echo 💡 Intenta ejecutar: setup.bat
+    echo 💡 Intenta ejecutar: scripts\windows\setup.bat
 )
 
 echo.

@@ -1,23 +1,31 @@
 @echo off
 REM DVAYMS - Development Script para Windows
 REM Script de desarrollo rápido para Windows
+REM NOTA: Este script debe ejecutarse desde la RAÍZ del proyecto
+
+REM Verificar si estamos en la raíz del proyecto
+if not exist "yenny\manage.py" (
+    echo ❌ Error: Este script debe ejecutarse desde la raíz del proyecto
+    echo 💡 Ejecuta: cd /d "%~dp0..\.." ^&^& scripts\windows\dev.bat
+    pause
+    exit /b 1
+)
+
+REM Activar entorno virtual
+if not exist "venv\Scripts\activate.bat" (
+    echo ❌ Error: No se encontró el entorno virtual
+    echo 💡 Ejecuta primero: scripts\windows\run.bat o scripts\windows\setup.bat
+    pause
+    exit /b 1
+)
 
 call venv\Scripts\activate.bat
 
 echo.
 echo 🚀 DVAYMS - Modo Desarrollo (Windows)
 echo ===================================
-
-REM Check if virtual environment is active
-if "%VIRTUAL_ENV%"=="" (
-    echo ❌ Error: Entorno virtual no está activo
-    echo 💡 Ejecuta primero: run.bat
-    pause
-    exit /b 1
-)
-
 echo 📦 Entorno virtual: ACTIVO
-echo 🐍 Python: %PYTHON_VERSION%
+echo.
 
 cd yenny
 
@@ -44,7 +52,6 @@ if not exist "static\CACHE" (
 echo.
 echo 🌐 Iniciando servidor de desarrollo...
 echo 📱 URL: http://127.0.0.1:8000/
-echo 🔑 Admin: http://127.0.0.1:8000/admin/ (admin/admin)
 echo.
 echo 💡 Presiona Ctrl+C para detener el servidor
 echo.

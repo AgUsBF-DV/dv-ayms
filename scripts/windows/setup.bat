@@ -1,6 +1,15 @@
 @echo off
 REM DVAYMS - Setup Script para Windows
 REM Este script configura el proyecto automáticamente
+REM NOTA: Este script debe ejecutarse desde la RAÍZ del proyecto
+
+REM Verificar si estamos en la raíz del proyecto
+if not exist "yenny\manage.py" (
+    echo ❌ Error: Este script debe ejecutarse desde la raíz del proyecto
+    echo 💡 Cambia al directorio raíz primero: cd /d "%~dp0..\.."
+    pause
+    exit /b 1
+)
 
 echo.
 echo 🚀 DVAYMS - Configuración Inicial (Windows)
@@ -29,7 +38,7 @@ if %errorlevel% equ 0 (
     python -m pip install django-compressor==4.5.1 --quiet
 ) else (
     echo    ✅ Instalando dependencias estándar
-    python -m pip install -r requirements.txt --quiet
+    python -m pip install -r scripts\requirements.txt --quiet
 )
 
 REM Step 3: Node.js dependencies
@@ -42,7 +51,10 @@ echo ✅ ¡Configuración completada!
 echo.
 echo 🌐 Para continuar:
 echo    1. Configura PostgreSQL (ver SETUP.md)
-echo    2. Ejecuta: dev.bat
+echo    2. Ejecuta: scripts\windows\dev.bat
+echo.
+echo 💡 También puedes ejecutar directamente: scripts\windows\run.bat
+echo    para una configuración completa automática
 echo.
 
 pause

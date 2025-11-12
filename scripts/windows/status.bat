@@ -1,10 +1,20 @@
 @echo off
 REM DVAYMS - Status Check Script para Windows
 REM Verifica el estado completo del proyecto
+REM NOTA: Este script debe ejecutarse desde la RAÍZ del proyecto
+
+REM Verificar si estamos en la raíz del proyecto
+if not exist "yenny\manage.py" (
+    echo ❌ Error: Este script debe ejecutarse desde la raíz del proyecto
+    echo 💡 Cambia al directorio raíz primero
+    pause
+    exit /b 1
+)
 
 echo.
 echo 🔍 DVAYMS - Verificación de Estado (Windows)
 echo =============================================
+echo.
 
 REM Check Python
 echo 📍 Verificando Python...
@@ -77,10 +87,10 @@ if exist yenny (
 REM Check requirements.txt
 echo.
 echo 📍 Verificando archivos de configuración...
-if exist requirements.txt (
-    echo    ✅ requirements.txt existe
+if exist scripts\requirements.txt (
+    echo    ✅ scripts\requirements.txt existe
 ) else (
-    echo    ❌ requirements.txt no encontrado
+    echo    ❌ scripts\requirements.txt no encontrado
 )
 
 REM Test database connection (if venv exists)
@@ -112,14 +122,14 @@ echo =========
 if exist venv (
     if exist yenny\manage.py (
         echo ✅ Proyecto configurado correctamente
-        echo 💡 Ejecuta: dev.bat
+        echo 💡 Ejecuta: scripts\windows\dev.bat
     ) else (
         echo ⚠️  Proyecto parcialmente configurado
-        echo 💡 Ejecuta: run.bat
+        echo 💡 Ejecuta: scripts\windows\run.bat
     )
 ) else (
     echo ❌ Proyecto no configurado
-    echo 💡 Ejecuta: setup.bat o run.bat
+    echo 💡 Ejecuta: scripts\windows\setup.bat o scripts\windows\run.bat
 )
 
 echo.

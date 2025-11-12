@@ -1,6 +1,15 @@
 @echo off
 REM DVAYMS - Quick Fix Script para Windows
 REM Fix rápido para problemas comunes del proyecto
+REM NOTA: Este script debe ejecutarse desde la RAÍZ del proyecto
+
+REM Verificar si estamos en la raíz del proyecto
+if not exist "yenny\manage.py" (
+    echo ❌ Error: Este script debe ejecutarse desde la raíz del proyecto
+    echo 💡 Cambia al directorio raíz primero: cd /d "%~dp0..\.."
+    pause
+    exit /b 1
+)
 
 echo.
 echo ⚡ DVAYMS - Quick Fix (Windows)
@@ -17,9 +26,9 @@ if not exist venv (
     call venv\Scripts\activate.bat
     pip install --upgrade pip --quiet
 
-    if exist requirements.txt (
+    if exist scripts\requirements.txt (
         echo    📦 Instalando dependencias...
-        pip install -r requirements.txt --quiet
+        pip install -r scripts\requirements.txt --quiet
     )
     echo    ✅ Entorno virtual creado
 ) else (
@@ -116,7 +125,10 @@ echo 🎉 ¡Quick Fix completado!
 echo =========================
 echo.
 echo 🚀 Ahora puedes ejecutar:
-echo    dev.bat
+echo    scripts\windows\dev.bat
+echo.
+echo 💡 O para una configuración completa:
+echo    scripts\windows\run.bat
 echo.
 
 pause

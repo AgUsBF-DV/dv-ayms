@@ -2,8 +2,16 @@
 
 # DVAYMS - One Command Setup
 # This script sets up everything automatically
+# NOTA: Este script debe ejecutarse desde la RAÍZ del proyecto
 
 set -e  # Exit on any error
+
+# Verificar si estamos en la raíz del proyecto
+if [ ! -f "yenny/manage.py" ]; then
+    echo "❌ Error: Este script debe ejecutarse desde la raíz del proyecto"
+    echo "💡 Cambia al directorio raíz primero"
+    exit 1
+fi
 
 echo "🚀 DVAYMS - Configuración Automática Completa"
 echo "=============================================="
@@ -29,7 +37,7 @@ if [[ "$PYTHON_VERSION" == "3.14" ]]; then
     pip install django-compressor==4.5.1 --quiet
 else
     echo "   ✅ Instalando dependencias estándar"
-    pip install -r requirements.txt --quiet
+    pip install -r scripts/requirements.txt --quiet
 fi
 
 # Step 3: Node.js dependencies
@@ -89,9 +97,6 @@ echo "   cd yenny && python manage.py runserver"
 echo ""
 echo "📱 URLs importantes:"
 echo "   • Aplicación: http://127.0.0.1:8000/"
-echo "   • Admin:      http://127.0.0.1:8000/admin/"
-echo "   • Usuario:    admin"
-echo "   • Password:   admin"
 echo ""
 echo "🚀 ¡Ya puedes empezar a desarrollar!"
 

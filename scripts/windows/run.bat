@@ -1,6 +1,15 @@
 @echo off
 REM DVAYMS - One Command Setup para Windows
 REM Este script configura todo automáticamente en Windows
+REM NOTA: Este script debe ejecutarse desde la RAÍZ del proyecto
+
+REM Verificar si estamos en la raíz del proyecto
+if not exist "yenny\manage.py" (
+    echo ❌ Error: Este script debe ejecutarse desde la raíz del proyecto
+    echo 💡 Cambia al directorio raíz primero: cd /d "%~dp0..\.."
+    pause
+    exit /b 1
+)
 
 echo.
 echo 🚀 DVAYMS - Configuración Automática Completa (Windows)
@@ -28,7 +37,7 @@ if %errorlevel% equ 0 (
     python -m pip install django-compressor==4.5.1 --quiet
 ) else (
     echo    ✅ Instalando dependencias estándar
-    python -m pip install -r requirements.txt --quiet
+    python -m pip install -r scripts\requirements.txt --quiet
 )
 
 REM Step 3: Node.js dependencies
@@ -89,9 +98,6 @@ echo    cd yenny ^&^& python manage.py runserver
 echo.
 echo 📱 URLs importantes:
 echo    • Aplicación: http://127.0.0.1:8000/
-echo    • Admin:      http://127.0.0.1:8000/admin/
-echo    • Usuario:    admin
-echo    • Password:   admin
 echo.
 echo 🚀 ¡Ya puedes empezar a desarrollar!
 
