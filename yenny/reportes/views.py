@@ -36,16 +36,17 @@ class VentasDiariasView(ListView):
             registros.append({
                 'campos': [
                     venta.id,
-                    venta.fecha.strftime('%H:%M'),
+                    timezone.localtime(venta.fecha).strftime('%H:%M'),
                     str(venta.cliente),
                     str(venta.empleado),
-                    f"${venta.total:.2f}"
+                    f"${venta.total:.2f}",
+                    None,  # campo dummy para que Total no sea el último
                 ],
                 'objeto': venta
             })
         
         context['titulo'] = f'Ventas del Día - {context["fecha_hoy"]}'
-        context['columnas'] = ['ID', 'Hora', 'Cliente', 'Empleado', 'Total']
+        context['columnas'] = ['ID', 'Hora', 'Cliente', 'Empleado', 'Total', '']
         context['registros'] = registros
         context['objeto_pag'] = context['page_obj']
         

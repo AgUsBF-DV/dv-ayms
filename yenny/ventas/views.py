@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.utils import timezone
 from datetime import datetime
 
 class VentaListView(ListView):
@@ -72,7 +73,7 @@ class VentaListView(ListView):
                 venta.id,
                 str(venta.cliente),
                 str(venta.empleado),
-                venta.fecha.strftime("%d/%m/%Y %H:%M"),
+                timezone.localtime(venta.fecha).strftime("%d/%m/%Y %H:%M"),
                 f"${venta.total:.2f}",
                 libros_str,
                 '',  # para la botonera
