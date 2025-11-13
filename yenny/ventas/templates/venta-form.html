@@ -36,7 +36,7 @@
 
                     <div id="venta-libros-list" class="mb-4">
                         {% for venta_libro in venta_libros %}
-                            <div class="mb-4">
+                            <div id="venta-libro-{{ forloop.counter }}" class="mb-4">
                                 <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Libro</label>
                                 <select name="libro" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}disabled{% endif %}>
                                     <option value="" disabled>Seleccione el libro</option>
@@ -46,21 +46,21 @@
                                         </option>
                                     {% endfor %}
                                 </select>
-                            </div>
 
-                            <div class="grid grid-cols-2 gap-4 mb-4">
-                                <div>
-                                    <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Cantidad</label>
-                                    <input type="number" name="cantidad" min="1" value="{{ venta_libro.cantidad }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}readonly{% endif %} />
-                                </div>
+                                <div class="grid grid-cols-2 gap-4 mb-4 mt-4">
+                                    <div>
+                                        <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Cantidad</label>
+                                        <input type="number" name="cantidad" min="1" value="{{ venta_libro.cantidad }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}readonly{% endif %} />
+                                    </div>
 
-                                <div>
-                                    <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Subtotal</label>
-                                    <input type="number" name="subtotal" step="0.01" value="{{ venta_libro.subtotal }}" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                    <div>
+                                        <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Subtotal</label>
+                                        <input type="number" name="subtotal" step="0.01" value="{{ venta_libro.subtotal }}" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                    </div>
                                 </div>
                             </div>
                         {% empty %}
-                            <div class="mb-4">
+                            <div id="venta-libro-1" class="mb-4">
                                 <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Libro</label>
                                 <select name="libro" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}disabled{% endif %}>
                                     <option value="" selected disabled>Seleccione el libro</option>
@@ -70,29 +70,29 @@
                                         </option>
                                     {% endfor %}
                                 </select>
-                            </div>
 
-                            <div class="grid grid-cols-2 gap-4 mb-4">
-                                <div>
-                                    <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Cantidad</label>
-                                    <input type="number" name="cantidad" min="1" value="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}readonly{% endif %} />
-                                </div>
+                                <div class="grid grid-cols-2 gap-4 mb-4 mt-4">
+                                    <div>
+                                        <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Cantidad</label>
+                                        <input type="number" name="cantidad" min="1" value="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}readonly{% endif %} />
+                                    </div>
 
-                                <div>
-                                    <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Subtotal</label>
-                                    <input type="number" name="subtotal" step="0.01" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                    <div>
+                                        <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Subtotal</label>
+                                        <input type="number" name="subtotal" step="0.01" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}
-
-                        {% if not readonly %}
-                        <!-- Botón para agregar más filas -->
-                        <button type="button" class="mt-2 px-3 py-2 text-xs bg-blue-600 text-white rounded hover:bg-blue-700">
-                            Agregar libro
-                        </button>
-                        {% endif %}
-
                     </div>
+
+                    {% if not readonly %}
+                    <!-- Botón para agregar más filas -->
+                    <button type="button" id="agregar-libro-btn" class="mt-2 px-3 py-2 text-xs bg-blue-600 text-white rounded hover:bg-blue-700">
+                        Agregar libro
+                    </button>
+                    {% endif %}
+
                 </div>
 
                 <div class="flex flex-col justify-center mb-4">
@@ -103,15 +103,14 @@
                 <script>
                 // JS para manejo dinámico de libros y totales
                 document.addEventListener('DOMContentLoaded', function() {
+                    let rowCounter = document.querySelectorAll('#venta-libros-list > div').length;
+
                     function updateRow(row) {
                         const libroSelect = row.querySelector('select[name="libro"]');
                         const cantidadInput = row.querySelector('input[name="cantidad"]');
                         const subtotalInput = row.querySelector('input[name="subtotal"]');
 
-                        // Al cambiar libro, recalcular subtotal
-                        libroSelect.addEventListener('change', calcularSubtotal);
-                        // Al cambiar cantidad, recalcular subtotal
-                        cantidadInput.addEventListener('input', calcularSubtotal);
+                        if (!libroSelect || !cantidadInput || !subtotalInput) return;
 
                         function calcularSubtotal() {
                             const selectedOption = libroSelect.options[libroSelect.selectedIndex];
@@ -122,6 +121,11 @@
                             subtotalInput.value = subtotal.toFixed(2);
                             calcularTotal();
                         }
+
+                        // Al cambiar libro, recalcular subtotal
+                        libroSelect.addEventListener('change', calcularSubtotal);
+                        // Al cambiar cantidad, recalcular subtotal
+                        cantidadInput.addEventListener('input', calcularSubtotal);
 
                         // Calcular inicial si hay valores
                         if (libroSelect.value && cantidadInput.value) {
@@ -138,25 +142,32 @@
                     }
 
                     // Inicializar todas las filas existentes
-                    document.querySelectorAll('#venta-libros-list .grid').forEach(function(row) {
+                    document.querySelectorAll('#venta-libros-list > div').forEach(function(row) {
                         updateRow(row);
                     });
 
                     // Agregar nuevas filas dinámicamente
-                    const addButton = document.querySelector('#venta-libros-list button');
+                    const addButton = document.querySelector('#agregar-libro-btn');
                     if (addButton) {
-                        addButton.addEventListener('click', function() {
-                            const firstRow = document.querySelector('#venta-libros-list .grid');
+                        addButton.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const firstRow = document.querySelector('#venta-libros-list > div');
                             if (firstRow) {
-                                const row = firstRow.cloneNode(true);
+                                rowCounter++;
+                                const newRow = firstRow.cloneNode(true);
+                                newRow.id = 'venta-libro-' + rowCounter;
                                 
                                 // Limpiar valores
-                                row.querySelector('select[name="libro"]').selectedIndex = 0;
-                                row.querySelector('input[name="cantidad"]').value = 1;
-                                row.querySelector('input[name="subtotal"]').value = '';
+                                const selectLib = newRow.querySelector('select[name="libro"]');
+                                const inputCant = newRow.querySelector('input[name="cantidad"]');
+                                const inputSubtotal = newRow.querySelector('input[name="subtotal"]');
+                                
+                                if (selectLib) selectLib.selectedIndex = 0;
+                                if (inputCant) inputCant.value = '1';
+                                if (inputSubtotal) inputSubtotal.value = '';
 
-                                document.getElementById('venta-libros-list').insertBefore(row, this);
-                                updateRow(row);
+                                document.getElementById('venta-libros-list').appendChild(newRow);
+                                updateRow(newRow);
                             }
                         });
                     }
