@@ -36,8 +36,7 @@
 
                     <div id="venta-libros-list" class="mb-4">
                         {% for venta_libro in venta_libros %}
-                        <div class="grid grid-cols-3 gap-4 mb-4">
-                            <div>
+                            <div class="mb-4">
                                 <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Libro</label>
                                 <select name="libro" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}disabled{% endif %}>
                                     <option value="" disabled>Seleccione el libro</option>
@@ -49,19 +48,19 @@
                                 </select>
                             </div>
 
-                            <div>
-                                <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Cantidad</label>
-                                <input type="number" name="cantidad" min="1" value="{{ venta_libro.cantidad }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}readonly{% endif %} />
-                            </div>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Cantidad</label>
+                                    <input type="number" name="cantidad" min="1" value="{{ venta_libro.cantidad }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}readonly{% endif %} />
+                                </div>
 
-                            <div>
-                                <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Subtotal</label>
-                                <input type="number" name="subtotal" step="0.01" value="{{ venta_libro.subtotal }}" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                <div>
+                                    <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Subtotal</label>
+                                    <input type="number" name="subtotal" step="0.01" value="{{ venta_libro.subtotal }}" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                </div>
                             </div>
-                        </div>
                         {% empty %}
-                        <div class="grid grid-cols-3 gap-4 mb-4">
-                            <div>
+                            <div class="mb-4">
                                 <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Libro</label>
                                 <select name="libro" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}disabled{% endif %}>
                                     <option value="" selected disabled>Seleccione el libro</option>
@@ -73,16 +72,17 @@
                                 </select>
                             </div>
 
-                            <div>
-                                <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Cantidad</label>
-                                <input type="number" name="cantidad" min="1" value="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}readonly{% endif %} />
-                            </div>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Cantidad</label>
+                                    <input type="number" name="cantidad" min="1" value="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}readonly{% endif %} />
+                                </div>
 
-                            <div>
-                                <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Subtotal</label>
-                                <input type="number" name="subtotal" step="0.01" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                <div>
+                                    <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Subtotal</label>
+                                    <input type="number" name="subtotal" step="0.01" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                                </div>
                             </div>
-                        </div>
                         {% endfor %}
 
                         {% if not readonly %}
