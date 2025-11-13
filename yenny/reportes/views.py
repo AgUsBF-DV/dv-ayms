@@ -36,7 +36,7 @@ class VentasDiariasView(ListView):
             registros.append({
                 'campos': [
                     venta.id,
-                    venta.fecha.strftime('%H:%M'),
+                    timezone.localtime(venta.fecha).strftime('%H:%M'),
                     str(venta.cliente),
                     str(venta.empleado),
                     f"${venta.total:.2f}"
