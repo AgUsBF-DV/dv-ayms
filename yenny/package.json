@@ -1,0 +1,16 @@
+{
+  "name": "yenny",
+  "version": "1.0.0",
+  "description": "Librería YENNY - Bookstore Management System",
+  "scripts": {
+    "build": "tailwindcss -i ./static/src/input.css -o ./static/src/output.css --watch",
+    "build-prod": "tailwindcss -i ./static/src/input.css -o ./static/src/output.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.15",
+    "tailwindcss": "^4.1.15"
+  },
+  "dependencies": {
+    "flowbite": "^3.1.2"
+  }
+}

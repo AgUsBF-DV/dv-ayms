@@ -1,0 +1,185 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+    <section class="text-gray-900 bg-white dark:text-white dark:bg-gray-800 rounded-2xl max-w-xl mx-auto">
+        <div class="py-8 px-4 mx-auto max-w-lg">
+
+            <h2 class="mb-6 text-xl text-center font-bold text-gray-900 dark:text-white">
+                {% if form.instance.pk %}
+                    Datos de la Venta
+                {% else %}
+                    Registrar una nueva venta
+                {% endif %}
+            </h2>
+
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                <div class="flex flex-col mb-4">
+                    {% if form.instance.pk %}
+                        <div class="flex flex-col justify-center mb-4">
+                            <label for="id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID</label>
+                            <input type="text" id="id" name="id" value="{{ form.instance.pk }}" readonly disabled
+                                class="bg-gray-100 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-500" />
+                        </div>
+                    {% endif %}
+
+                    <div class="flex flex-col justify-center mb-4">
+                        <label for="cliente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cliente</label>
+                        {{ form.cliente }}
+                    </div>
+                </div>
+
+                <div class="mb-6">
+
+                    <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Libros vendidos</h3>
+
+                    <div id="venta-libros-list" class="mb-4">
+                        {% for venta_libro in venta_libros %}
+                        <div class="grid grid-cols-3 gap-4 mb-4">
+                            <div>
+                                <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Libro</label>
+                                <select name="libro" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}disabled{% endif %}>
+                                    <option value="" disabled>Seleccione el libro</option>
+                                    {% for libro in libros %}
+                                        <option value="{{ libro.id }}" data-precio="{{ libro.precio }}" {% if libro.id == venta_libro.libro_id %}selected{% endif %}>
+                                            {{ libro.titulo }} ({{ libro.get_autores_str }}) - ${{ libro.precio }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Cantidad</label>
+                                <input type="number" name="cantidad" min="1" value="{{ venta_libro.cantidad }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}readonly{% endif %} />
+                            </div>
+
+                            <div>
+                                <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Subtotal</label>
+                                <input type="number" name="subtotal" step="0.01" value="{{ venta_libro.subtotal }}" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="grid grid-cols-3 gap-4 mb-4">
+                            <div>
+                                <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Libro</label>
+                                <select name="libro" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}disabled{% endif %}>
+                                    <option value="" selected disabled>Seleccione el libro</option>
+                                    {% for libro in libros %}
+                                        <option value="{{ libro.id }}" data-precio="{{ libro.precio }}">
+                                            {{ libro.titulo }} ({{ libro.get_autores_str }}) - ${{ libro.precio }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Cantidad</label>
+                                <input type="number" name="cantidad" min="1" value="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" {% if readonly %}readonly{% endif %} />
+                            </div>
+
+                            <div>
+                                <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-white">Subtotal</label>
+                                <input type="number" name="subtotal" step="0.01" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        {% if not readonly %}
+                        <!-- Botón para agregar más filas -->
+                        <button type="button" class="mt-2 px-3 py-2 text-xs bg-blue-600 text-white rounded hover:bg-blue-700">
+                            Agregar libro
+                        </button>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-center mb-4">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total de la venta</label>
+                    <input type="number" name="total" id="total-venta" value="{{ form.instance.total|default:0 }}" readonly class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                </div>
+ 
+                <script>
+                // JS para manejo dinámico de libros y totales
+                document.addEventListener('DOMContentLoaded', function() {
+                    function updateRow(row) {
+                        const libroSelect = row.querySelector('select[name="libro"]');
+                        const cantidadInput = row.querySelector('input[name="cantidad"]');
+                        const subtotalInput = row.querySelector('input[name="subtotal"]');
+
+                        // Al cambiar libro, recalcular subtotal
+                        libroSelect.addEventListener('change', calcularSubtotal);
+                        // Al cambiar cantidad, recalcular subtotal
+                        cantidadInput.addEventListener('input', calcularSubtotal);
+
+                        function calcularSubtotal() {
+                            const selectedOption = libroSelect.options[libroSelect.selectedIndex];
+                            const precio = parseFloat(selectedOption.getAttribute('data-precio')) || 0;
+                            const cantidad = parseInt(cantidadInput.value) || 0;
+                            const subtotal = cantidad * precio;
+
+                            subtotalInput.value = subtotal.toFixed(2);
+                            calcularTotal();
+                        }
+
+                        // Calcular inicial si hay valores
+                        if (libroSelect.value && cantidadInput.value) {
+                            calcularSubtotal();
+                        }
+                    }
+
+                    function calcularTotal() {
+                        let total = 0;
+                        document.querySelectorAll('#venta-libros-list input[name="subtotal"]').forEach(function(input) {
+                            total += parseFloat(input.value) || 0;
+                        });
+                        document.getElementById('total-venta').value = total.toFixed(2);
+                    }
+
+                    // Inicializar todas las filas existentes
+                    document.querySelectorAll('#venta-libros-list .grid').forEach(function(row) {
+                        updateRow(row);
+                    });
+
+                    // Agregar nuevas filas dinámicamente
+                    const addButton = document.querySelector('#venta-libros-list button');
+                    if (addButton) {
+                        addButton.addEventListener('click', function() {
+                            const firstRow = document.querySelector('#venta-libros-list .grid');
+                            if (firstRow) {
+                                const row = firstRow.cloneNode(true);
+                                
+                                // Limpiar valores
+                                row.querySelector('select[name="libro"]').selectedIndex = 0;
+                                row.querySelector('input[name="cantidad"]').value = 1;
+                                row.querySelector('input[name="subtotal"]').value = '';
+
+                                document.getElementById('venta-libros-list').insertBefore(row, this);
+                                updateRow(row);
+                            }
+                        });
+                    }
+
+                    // Calcular total inicial
+                    calcularTotal();
+                });
+                </script>
+
+                {% if not form.fields.cliente.widget.attrs.disabled %}
+                    <div class="flex justify-center">
+                        <button type="submit"
+                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            {% if form.instance.pk %}
+                                Guardar
+                            {% else %}
+                                Registrar Venta
+                            {% endif %}
+                        </button>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    </section>
+
+{% endblock content %}

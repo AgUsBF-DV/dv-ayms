@@ -1,0 +1,48 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+    {% include "components/heading.html" with size="h1" texto="Librería" %}
+
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        {% include "components/dashboard-card.html" with titulo="Autores" descripcion="Gestión de autores" url="/autores/" %}
+
+        {% include "components/dashboard-card.html" with titulo="Libros" descripcion="Gestión de libros" url="/libros/" %}
+
+        {% include "components/dashboard-card.html" with titulo="Clientes" descripcion="Gestión de clientes" url="/clientes/" %}
+
+        {% include "components/dashboard-card.html" with titulo="Ventas" descripcion="Gestión de ventas" url="/ventas/" %}
+
+    </div>
+
+    {% if request.user.rol == 'ADMIN' or request.user.rol == 'ENCARGADO' %}
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            {% include "components/dashboard-card.html" with titulo="Categorías" descripcion="Gestión de categorías" url="/categorias/" %}
+
+            {% include "components/dashboard-card.html" with titulo="Editoriales" descripcion="Gestión de editoriales" url="/editoriales/" %}
+
+            {% include "components/dashboard-card.html" with titulo="Empleados" descripcion="Gestión de empleados" url="/empleados/" %}
+
+        </div>
+    {% endif %}
+
+    {# Sección de Reportes #}
+    <div class="mt-12">
+        {% include "components/heading.html" with size="h2" texto="Reportes" %}
+        
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            {% include "components/dashboard-card.html" with titulo="Ventas del Día" descripcion="Reporte de ventas diarias" url="/reportes/ventas-diarias/" %}
+
+            {% include "components/dashboard-card.html" with titulo="Top 10 Libros" descripcion="Libros más vendidos" url="/reportes/ranking-libros/" %}
+
+            {% include "components/dashboard-card.html" with titulo="Top 10 Autores" descripcion="Autores más vendidos" url="/reportes/ranking-autores/" %}
+
+            {% include "components/dashboard-card.html" with titulo="Top 10 Categorías" descripcion="Categorías más vendidas" url="/reportes/ranking-categorias/" %}
+
+        </div>
+    </div>
+
+  {% endblock content %}

@@ -1,0 +1,13 @@
+{% with ruta_mostrar=modelo|add:'-show' ruta_editar=modelo|add:'-update' ruta_eliminar=modelo|add:'-delete' %}
+	<div class="flex flex-row gap-3 justify-center">
+		{% include "components/btn-show.html" with objeto=objeto ruta_mostrar=ruta_mostrar %}
+		
+		{% if show_edit %}
+			{% include "components/btn-edit.html" with objeto=objeto ruta_editar=ruta_editar %}
+		{% endif %}
+		
+		{% if show_delete %}
+			{% include "components/btn-delete.html" with objeto=objeto ruta_eliminar=ruta_eliminar %}
+		{% endif %}
+	</div>
+{% endwith %}
